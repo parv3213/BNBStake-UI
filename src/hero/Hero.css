@@ -1,0 +1,41 @@
+.Hero {
+    margin-bottom: 25px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+#basic-info {
+    max-width: 63%;
+    color: rgb(239, 244, 245);
+    line-height: 1.25;
+
+    background: rgb(16,110,117);
+    padding: 16px;
+    border-radius: 8px;
+    background: linear-gradient(45deg, rgba(16,110,117,1) 0%, var(--blue) 100%);
+}
+#basic-info p {
+    margin-top: 0;
+}
+
+#balance {
+    width: 37%;
+    padding: 0 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+}
+#balance h2 {
+    font-size: 3rem;
+    color: var(--purple);
+}
+#balance p,
+#balance h2 {
+    margin: 0;
+}
+#balance .cta {
+    font-size: 10px;
+    padding: 3px 10px;
+    background-color: rgba(133, 133, 133, 0.8);
+}

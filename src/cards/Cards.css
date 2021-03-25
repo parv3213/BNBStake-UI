@@ -1,0 +1,13 @@
+.Cards {
+    margin-bottom: 25px; 
+}
+.Cards > .flex-row:nth-child(1) > .flex-col > .Card {
+    --color: var(--purple);
+    --d-color: var(--d-purple);
+    --s-color: var(-s-purple);
+}
+.Cards > .flex-row:nth-child(1) > .flex-col > .Card .cta-fw {
+    --color: var(--purple);
+    --d-color: var(--d-purple);
+    --s-color: var(--s-purple);
+}

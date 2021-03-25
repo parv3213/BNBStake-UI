@@ -1,0 +1,49 @@
+.Referr {
+    margin-top: 25px;
+}
+.Referr > .flex-row {
+    justify-content: space-between;
+    padding: 0 15px;
+}
+.Referr .bg-txt {
+    margin: 5px 0 1rem 0;
+}
+
+#staked,
+#referral {
+    padding: 16px;
+    border-radius: 8px;
+}
+
+#staked {
+    width: 32%;
+    background-color: var(--purple);
+    color: white;
+}
+#staked .cta-fw {
+    --color: rgba(133, 133, 133, 1);
+    --d-color: rgba(113, 113, 113, 1);
+    --s-color: rgba(113, 113, 113, .8);
+}
+
+#referral {
+    width: 70%;
+    margin-left: 30px;
+    background-color: rgba(133, 133, 133, 0.1);
+    border: 1px solid var(--blue);
+}
+#referral .bg-txt {
+    color: var(--blue);
+}
+#referral > .flex-col > .flex-row {
+    padding: 0 15px;
+}
+
+.input {
+    border-radius: 5px;
+    background-color: rgba(133, 133, 133, 0.8);
+    color: white;
+    padding: .375rem .75rem;
+    width: 100%;
+    margin-right: 15px;
+}
