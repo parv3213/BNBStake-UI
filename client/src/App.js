@@ -52,7 +52,7 @@ class App extends Component {
 
   render() {
     if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
+      return <div id="web3-load-warning"></div>;
     }
     return (
     <div className="App">
@@ -67,7 +67,7 @@ class App extends Component {
           <div style={{width: "25%"}}></div>
 
           <div id="cake-price" class="sm-txt"><span>1 BNB = </span>${this.state.storageValue}</div>
-          <div class="flex-row">
+          <div id="header-buttons" class="flex-row">
             <div class="cta">Support</div>
             <div class="cta">Telegram</div>
             <div class="cta">Audit</div>

@@ -11,3 +11,17 @@
     --d-color: var(--d-purple);
     --s-color: var(--s-purple);
 }
+@media (max-width: 1024px) {
+
+}
+@media (max-width: 911px) {
+    .Cards > .flex-row {
+        flex-wrap: wrap;
+    }
+    .Cards > .flex-row > .flex-col {
+        margin-top: 25px;
+    }
+    /* .Cards .Card {
+        margin-top: 25px;
+    } */
+}

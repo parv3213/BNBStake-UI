@@ -9,14 +9,12 @@ function Cards() {
         <div class="flex-col"><Card /></div>
         <div class="flex-col"><Card /></div>
         <div class="flex-col"><Card /></div>
-      </div>
-        
-      <div style={{width: "100%", height: 25}}></div>
+      </div>      
 
       <div class="flex-row">
-        <div class="flex-col"><Card /></div>
-        <div class="flex-col"><Card /></div>
-        <div class="flex-col"><Card /></div>
+        <div class="flex-col" style={{marginTop: 25}}><Card /></div>
+        <div class="flex-col" style={{marginTop: 25}}><Card /></div>
+        <div class="flex-col" style={{marginTop: 25}}><Card /></div>
       </div>
     </div>
   );

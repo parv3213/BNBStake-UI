@@ -36,3 +36,9 @@
     display: flex;
     justify-content: center;
 }
+
+@media (max-width: 991px) {
+    .StakeCard:not(:first-of-type)  {
+        margin-top: 25px;
+    }
+}

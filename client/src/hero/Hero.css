@@ -39,3 +39,25 @@
     padding: 3px 10px;
     background-color: rgba(133, 133, 133, 0.8);
 }
+
+@media (max-width: 991px) {
+    .Hero {
+        flex-wrap: wrap;
+        margin-bottom: 0;
+    }
+    .Hero #basic-info,
+    .Hero #balance {
+        width: 100%;
+        max-width: 100%;
+    }
+    .Hero #balance {
+        margin-top: 25px;
+        padding: 0;
+    }
+}
+
+@media (max-width: 991px) {
+    .Hero #basic-info {
+        background-size: cover !important;
+    }
+}

@@ -68,7 +68,7 @@ header > .container {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1140px;
   padding: 0 15px;
   margin: auto;
 }
@@ -165,4 +165,17 @@ header > .container {
 }
 .italic {
   font-style: italic;
+}
+
+
+@media (max-width: 911px) {
+  #header-buttons {
+    display: none;
+  }
+  .Header-header div[style="width: 25%;"] {
+    display: none;
+  }
+  #wallet {
+    margin: 0 auto 0 20px;
+  }
 }
