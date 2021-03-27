@@ -1,86 +1,120 @@
-import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
-import getWeb3 from "./getWeb3";
+import React, { useState, useEffect } from "react";
+import BNBStake from "./contracts/BNBStake.json";
+import Web3 from "web3";
+import Spinner from "react-bootstrap/Spinner";
+import Modal from "react-bootstrap/Modal";
+import Header from './header/Header';
+import Hero from './hero/Hero';
+import Cards from './cards/Cards';
+import Referr from './referr/Referr';
+import Stake from './stake/Stake';
+import Footer from './footer/Footer';
+import footerImg from './footer.png';
 
-import logo from './logo.svg';
-import cake from './cake.webp';
+import logo from "./logo.svg";
+import cake from "./cake.webp";
 import "./App.css";
 
-class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+const { REACT_APP_NETWORK_ID } = process.env;
 
-  componentDidMount = async () => {
-    try {
-      // Get network provider and web3 instance.
-      const web3 = await getWeb3();
+export default function App() {
+	const [web3, setWeb3] = useState(undefined);
+	const [account, setAccount] = useState("");
+	const [accountBalance, setAccountBalance] = useState("");
+	const [networkId, setNetworkId] = useState(0);
+	const [metamaskChange, setMetaMaskChange] = useState(true);
+	const [wrongNetwork, setWrongNetwork] = useState(false);
+	const [refresh, setRefresh] = useState(true);
+	const [loading, setLoading] = useState(true);
 
-      // Use web3 to get the user's accounts.
-      const accounts = await web3.eth.getAccounts();
+	const getWeb3 = () => {
+		return new Promise(async (resolve, reject) => {
+			if (window.ethereum) {
+				const web3 = new Web3(window.ethereum);
+				try {
+					// await window.ethereum.send("eth_requestAccounts");
+					await window.ethereum.enable();
+					resolve(web3);
+				} catch (e) {
+					reject(e);
+				}
+			} else if (window.web3) {
+				resolve(window.web3);
+			} else {
+				window.alert("Must install Metamask Extension!\nDApp will not load");
+				reject("Must install Metamask Extension!");
+			}
+		});
+	};
 
-      // Get the contract instance.
-      const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
-      const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
-        deployedNetwork && deployedNetwork.address,
-      );
+	useEffect(() => {
+		const init = async () => {
+			const web3 = await getWeb3();
+			const account = (await web3.eth.getAccounts())[0];
+			const networkId = await web3.eth.net.getId();
+			if (networkId !== parseInt(REACT_APP_NETWORK_ID)) {
+				console.log("Not correct", networkId, REACT_APP_NETWORK_ID);
+				setWrongNetwork(true);
+			}
+			const accountBalance =
+				Math.floor(parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account))) * 100) / 100;
+			setWeb3(web3);
+			setAccount(account);
+			setNetworkId(networkId);
+			setAccountBalance(accountBalance);
+		};
+		setLoading(true);
+		init();
+		setLoading(false);
+	}, [metamaskChange, refresh]);
 
-      // Set web3, accounts, and contract to the state, and then proceed with an
-      // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
-    } catch (error) {
-      // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
-      console.error(error);
-    }
-  };
+	useEffect(() => {
+		window.ethereum.on("accountsChanged", () => {
+			console.warn("Account changed");
+			setMetaMaskChange((m) => !m);
+		});
+		window.ethereum.on("chainChanged", () => {
+			console.warn("Chain changed");
+			setMetaMaskChange((m) => !m);
+		});
+	}, []);
 
-  runExample = async () => {
-    const { accounts, contract } = this.state;
+	return (
+		<div className="App">
+			<header className="App-header">
+				<div className="container">
+					<div id="logo" className="flex-row">
+						<img src={cake}></img>
+						<p className="bg-txt">
+							<span>CAKE</span>Stake
+						</p>
+					</div>
+					<div id="wallet">{account}</div>
 
-    // Stores a given value, 5 by default.
-    await contract.methods.set(5).send({ from: accounts[0] });
+					<div style={{ width: "25%" }}></div>
 
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
+					<div id="cake-price" className="sm-txt">
+						<span>1 BNB = </span>${101}
+					</div>
+					<div id="header-buttons" className="flex-row">
+						<div className="cta">Support</div>
+						<div className="cta">Telegram</div>
+						<div className="cta">Audit</div>
+						<div className="cta">Help</div>
+						<div className="cta">Presentation</div>
+					</div>
+				</div>
+			</header>
+			<div className="container">
+				{loading === true ? <Spinner className="text-align-center" animation="border" role="status" /> : null}
 
-    // Update state with the result.
-    this.setState({ storageValue: response });
-  };
-
-  render() {
-    if (!this.state.web3) {
-      return <div id="web3-load-warning"></div>;
-    }
-    return (
-    <div className="App">
-      <header className="App-header">
-        <div class="container">
-          <div id="logo" class="flex-row">
-            <img src={cake} ></img>
-            <p class="bg-txt"><span>CAKE</span>Stake</p>
-          </div>
-          <div id="wallet">{this.state.accounts[0]}</div>
-
-          <div style={{width: "25%"}}></div>
-
-          <div id="cake-price" class="sm-txt"><span>1 BNB = </span>${this.state.storageValue}</div>
-          <div id="header-buttons" class="flex-row">
-            <div class="cta">Support</div>
-            <div class="cta">Telegram</div>
-            <div class="cta">Audit</div>
-            <div class="cta">Help</div>
-            <div class="cta">Presentation</div>
-          </div>
-          
-        </div>
-      </header>
-    </div>
-    
-  );
-  }
+				<Hero web3={web3}/>
+				<Cards />
+				<Referr />
+				<Stake />
+				<img src={footerImg} style={{ display: "block", margin: "auto", marginTop: 25, width: "100%" }}></img>
+				<Footer />
+			</div>
+		</div>
+	);
 }
-
-export default App;

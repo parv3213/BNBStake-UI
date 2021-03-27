@@ -5,16 +5,16 @@ import React  from 'react';
 function Cards() {
   return (
     <div className="Cards">
-      <div class="flex-row">
-        <div class="flex-col"><Card /></div>
-        <div class="flex-col"><Card /></div>
-        <div class="flex-col"><Card /></div>
+      <div className="flex-row">
+        <div className="flex-col"><Card /></div>
+        <div className="flex-col"><Card /></div>
+        <div className="flex-col"><Card /></div>
       </div>      
 
-      <div class="flex-row">
-        <div class="flex-col" style={{marginTop: 25}}><Card /></div>
-        <div class="flex-col" style={{marginTop: 25}}><Card /></div>
-        <div class="flex-col" style={{marginTop: 25}}><Card /></div>
+      <div className="flex-row">
+        <div className="flex-col" style={{marginTop: 25}}><Card /></div>
+        <div className="flex-col" style={{marginTop: 25}}><Card /></div>
+        <div className="flex-col" style={{marginTop: 25}}><Card /></div>
       </div>
     </div>
   );
