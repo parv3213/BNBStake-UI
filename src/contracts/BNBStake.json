@@ -3,17 +3,12 @@
 		"inputs": [
 			{
 				"internalType": "address payable",
-				"name": "wallet",
+				"name": "marketingAddr",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "startDate",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "BUSDAddress",
+				"internalType": "address payable",
+				"name": "projectAddr",
 				"type": "address"
 			}
 		],
@@ -37,6 +32,37 @@
 			}
 		],
 		"name": "FeePayed",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "penaltyAmount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "penaltyID",
+				"type": "uint256"
+			}
+		],
+		"name": "ForceWithdrawn",
 		"type": "event"
 	},
 	{
@@ -153,12 +179,12 @@
 	},
 	{
 		"inputs": [],
-		"name": "BUSDInstance",
+		"name": "DECREASE_DAY_STEP",
 		"outputs": [
 			{
-				"internalType": "contract IBEP20",
+				"internalType": "uint256",
 				"name": "",
-				"type": "address"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -167,6 +193,45 @@
 	{
 		"inputs": [],
 		"name": "INVEST_MIN_AMOUNT",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "LAUNCH_TIME",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "MARKETING_FEE",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "PENALTY_STEP",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -249,21 +314,53 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "forceWithdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
-		"name": "commissionWallet",
+		"name": "getChainID",
 		"outputs": [
 			{
-				"internalType": "address payable",
+				"internalType": "uint256",
 				"name": "",
-				"type": "address"
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getContractBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getContractBalance",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "planTime",
+				"type": "uint256"
+			}
+		],
+		"name": "getDecreaseDays",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -344,6 +441,11 @@
 			},
 			{
 				"internalType": "uint256",
+				"name": "current",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
 				"name": "finish",
 				"type": "uint256"
 			}
@@ -360,6 +462,25 @@
 			}
 		],
 		"name": "getUserAmountOfDeposits",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddress",
+				"type": "address"
+			}
+		],
+		"name": "getUserAmountOfPenaltyDeposits",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -452,6 +573,11 @@
 				"internalType": "uint256",
 				"name": "finish",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "force",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -499,6 +625,55 @@
 			{
 				"internalType": "uint256",
 				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "getUserPenaltyDepositInfo",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "plan",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "percent",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "profit",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "start",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "finish",
 				"type": "uint256"
 			}
 		],
@@ -611,26 +786,34 @@
 				"internalType": "uint8",
 				"name": "plan",
 				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
 			}
 		],
 		"name": "invest",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"name": "startUNIX",
+		"name": "marketingAddress",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "address payable",
 				"name": "",
-				"type": "uint256"
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "projectAddress",
+		"outputs": [
+			{
+				"internalType": "address payable",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
