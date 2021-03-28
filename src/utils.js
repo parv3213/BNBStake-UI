@@ -50,6 +50,12 @@ const withdraw = async (web3, account) => {
 	}
 }
 
+const getUserAvailable = async (web3, account) => {
+	const contractInstance = await contractInstanceMethod(web3)
+	const userAvailable = ((await contractInstance.methods.getUserAvailable(account).call()) / 1e18).toFixed(3)
+	return userAvailable
+}
+
 const invest = async (web3, account, referrer, plan, value) => {
 	try {
 		const contractInstance = await contractInstanceMethod(web3)
