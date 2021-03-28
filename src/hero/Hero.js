@@ -48,12 +48,12 @@ function Hero(props) {
 
 			<div id="balance">
 				<div>
-					<p className="d-flex flex-row">
+					<div className="d-flex flex-row">
 						Total BNB Staked
 						<div className="cta" style={{ marginLeft: 5, alignItems: 'center' }}>
 							Contract
 						</div>
-					</p>
+					</div>
 					<h2>{totalStake.toFixed(3)}</h2>
 				</div>
 
