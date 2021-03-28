@@ -1,39 +1,58 @@
-import './Referr.css';
-import bckImg from '../fondo-stake.jpg';
-import React, {useState, useEffect}  from 'react';
+import "./Referr.css";
+import bckImg from "../fondo-stake.jpg";
+import React, { useState, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import {findUserDownline, getUserReferralAmount} from "../utils.js";
+import { findUserDownline, getUserReferralAmount, getUserTotalDeposits, getUserAvailable, withdraw } from "../utils.js";
 
 function Referr(props) {
+	const [loading, setLoading] = useState(false);
+	const [userDownline, setUserDownline] = useState(0);
+	const [userReferralTotalBonus, setUserReferralTotalBonus] = useState(0);
+	const [userReferralWithdrawn, setUserReferralWithdrawn] = useState(0);
+	const [userTotalDeposits, setUserTotalDeposits] = useState(0);
+	const [userAvailable, setUserAvailable] = useState(0);
+	const [referralLink, setReferralLink] = useState("");
+	// const [totalStake, setTotalStale] = useState(0);
 
-    const [loading, setLoading] = useState(false);
-    const [userDownline, setUserDownline] = useState(0);
-    const [userReferralTotalBonus, setUserReferralTotalBonus] = useState(0);
-    const [userReferralWithdrawn, setUserReferralWithdrawn] = useState(0);
-    const [referralLink, setReferralLink] = useState("");
-    // const [totalStake, setTotalStale] = useState(0);
+	useEffect(() => {
+		const init = async () => {
+			try {
+				setLoading(true);
+				if (props.web3 === undefined) return;
+				// const account = (await props.web3.eth.getAccounts())[0]
+				const account = "0x494CEAF0059560852Aaf44310988C2d2a700C5a6";
+				const userDownline = await findUserDownline(props.web3, account);
+				const { totalBonus, bonusWithdrawn } = await getUserReferralAmount(props.web3, account);
+				const totalDeposit = await getUserTotalDeposits(props.web3, account);
+				const userAvailable = await getUserAvailable(props.web3, account);
+				setUserDownline(userDownline);
+				setUserReferralTotalBonus(totalBonus);
+				setUserReferralWithdrawn(bonusWithdrawn);
+				setUserTotalDeposits(totalDeposit);
+				setUserAvailable(userAvailable);
+				setReferralLink("https://www.xyz.app/?ref=" + account);
+				setLoading(false);
+			} catch (e) {
+				console.error(`Error at Referr ${e.message}`);
+			}
+		};
+		init();
+	}, [props]);
 
-    useEffect(() => {
-        const init = async () => {
-            try {
-                setLoading(true);
-                if (props.web3 === undefined) return;
-                const account = (await props.web3.eth.getAccounts())[0]
-                const userDownline = await findUserDownline(props.web3, account);
-                const {totalBonus, bonusWithdrawn} = await getUserReferralAmount(props.web3, account);
-                setUserDownline(userDownline);
-                setUserReferralTotalBonus(totalBonus)
-                setUserReferralWithdrawn(bonusWithdrawn)
-                setReferralLink("https://www.xyz.app/?ref="+account);
-                setLoading(false);
-            } catch (e) {
-                console.error(`Error at Referr ${e.message}`);
-            }
-        };
-        init();
-    }, [props])
+	const userWithdraw = async () => {
+		try {
+			setLoading(true);
+			if (props.web3 === undefined) throw new Error("Web3 not defined");
+			await withdraw(props.web3, (await props.web3.eth.getAccounts())[0]);
+			setLoading(false);
+		} catch (e) {
+			console.error(e);
+			alert(`Some error\n${e.message}`);
+			setLoading(false);
+		}
+	};
 
-  return (
+	return (
 		<div className="Referr">
 			{loading === true ? <Spinner className="text-align-center" animation="border" role="status" /> : null}
 			<p className="sm-txt" style={{ margin: 0, marginBottom: 15 }}>
@@ -53,12 +72,12 @@ function Referr(props) {
 						backgroundPosition: "center",
 					}}
 				>
-					<p style={{ marginBottom: 0, marginTop: 0 }}>Total Stacked CAKE</p>
-					<p className="bg-txt">0.00</p>
+					<p style={{ marginBottom: 0, marginTop: 0 }}>Total Staked</p>
+					<p className="bg-txt">{userTotalDeposits}</p>
 					<p style={{ marginBottom: 0, marginTop: 30 }}>Available BNB for withdrawal</p>
-					<p className="bg-txt">0.00</p>
-					<a className="cta-fw" style={{ marginTop: 30 }}>
-						WITHDRAW CAKE
+					<p className="bg-txt">{userAvailable}</p>
+					<a className="cta-fw" onClick={userWithdraw} style={{ marginTop: 30 }}>
+						WITHDRAW
 					</a>
 				</div>
 
@@ -73,7 +92,7 @@ function Referr(props) {
 							<a
 								className="cta"
 								style={{ marginRight: 15 }}
-								onClick={() => navigator.clipboard.writeText({ referralLink })}
+								onClick={() => navigator.clipboard.writeText(referralLink)}
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +142,7 @@ function Referr(props) {
 				</div>
 			</div>
 		</div>
-  );
+	);
 }
 
 export default Referr;
