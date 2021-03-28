@@ -24,6 +24,7 @@ export default function App() {
 	const [networkId, setNetworkId] = useState(0);
 	const [metamaskChange, setMetaMaskChange] = useState(true);
 	const [wrongNetwork, setWrongNetwork] = useState(false);
+	// const [contractInstance, setContractInstance] = useState(undefined);
 	const [refresh, setRefresh] = useState(true);
 	const [loading, setLoading] = useState(true);
 
@@ -58,10 +59,13 @@ export default function App() {
 			}
 			const accountBalance =
 				Math.floor(parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account))) * 100) / 100;
+      // const contractInstance = await new web3.eth.Contract(BNBStake, BMBAddress)
+
 			setWeb3(web3);
 			setAccount(account);
 			setNetworkId(networkId);
 			setAccountBalance(accountBalance);
+      // setContractInstance(contractInstance);
 		};
 		setLoading(true);
 		init();
@@ -110,7 +114,7 @@ export default function App() {
 
 				<Hero web3={web3}/>
 				<Cards />
-				<Referr />
+				<Referr web3={web3}/>
 				<Stake />
 				<img src={footerImg} style={{ display: "block", margin: "auto", marginTop: 25, width: "100%" }}></img>
 				<Footer />
