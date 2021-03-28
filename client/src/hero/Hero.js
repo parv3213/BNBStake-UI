@@ -1,32 +1,32 @@
-import React, {useState, useEffect}  from 'react';
-import './Hero.css';
-import bckImg from '../fondo-balance.jpg'
+import React, { useState, useEffect } from "react";
+import "./Hero.css";
+import bckImg from "../fondo-balance.jpg";
 import Spinner from "react-bootstrap/Spinner";
-import {totalStaked, totalBalance} from "../utils.js";
+import { totalStaked, totalBalance } from "../utils.js";
 
 function Hero(props) {
-    const [loading, setLoading] = useState(false);
-    const [totalStake, setTotalStale] = useState(0);
-    const [totalBalanceOf, setTotalBalanceOf] = useState(0);
+	const [loading, setLoading] = useState(false);
+	const [totalStake, setTotalStale] = useState(0);
+	const [totalBalanceOf, setTotalBalanceOf] = useState(0);
 
-    useEffect(() => {
-        const init = async () => {
-            try {
-                setLoading(true);
-                if (props.web3 === undefined) return;
-                const _totalStake = await totalStaked(props.web3);
-                const _totalBalance = await totalBalance(props.web3);
-                setTotalStale(_totalStake)
-                setTotalBalanceOf(_totalBalance)
-                setLoading(false);
-            } catch (e) {
-                console.error(`Error at Hero ${e.message}`);
-            }
-        };
-        init();
-    }, [props])
-    
-  return (
+	useEffect(() => {
+		const init = async () => {
+			try {
+				setLoading(true);
+				if (props.web3 === undefined) return;
+				const _totalStake = await totalStaked(props.web3);
+				const _totalBalance = await totalBalance(props.web3);
+				setTotalStale(_totalStake);
+				setTotalBalanceOf(_totalBalance);
+				setLoading(false);
+			} catch (e) {
+				console.error(`Error at Hero ${e.message}`);
+			}
+		};
+		init();
+	}, [props]);
+
+	return (
 		<div className="Hero">
 			{loading === true ? <Spinner className="text-align-center" animation="border" role="status" /> : null}
 
@@ -66,7 +66,7 @@ function Hero(props) {
 				</div>
 			</div>
 		</div>
-  );
+	);
 }
 
 export default Hero;

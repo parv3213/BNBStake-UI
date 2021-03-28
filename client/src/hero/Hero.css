@@ -1,5 +1,6 @@
 .Hero {
     margin-bottom: 25px;
+    margin-top: 2rem;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
