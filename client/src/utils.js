@@ -18,15 +18,15 @@ const findUserDownline = async(web3, account) => {
     return (count)
 }
 
-const getUserReferralTotalBonus = async(web3, account) => {
+const getUserReferralAmount = async(web3, account) => {
     const contractInstance = await contractInstanceMethod(web3);
-    const call = await contractInstance.methods.getUserDownlineCount(account).call()
-    const count = call[0]/1+call[1]/1+call[2]/1
-    return (count)
+    const totalBonus = (await contractInstance.methods.getUserReferralTotalBonus(account).call()/1e18).toFixed(3);
+    const bonusWithdrawn = (await contractInstance.methods.getUserReferralWithdrawn(account).call()/1e18).toFixed(3);
+    return ({totalBonus, bonusWithdrawn})
 }
 
 const contractInstanceMethod = async(web3) => {
     return await new web3.eth.Contract(BNBStake, BMBAddress);
 }
 
-export {totalStaked, contractInstanceMethod, totalBalance, findUserDownline }
+export {totalStaked, contractInstanceMethod, totalBalance, findUserDownline, getUserReferralAmount }

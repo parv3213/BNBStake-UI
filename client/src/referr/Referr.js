@@ -2,12 +2,14 @@ import './Referr.css';
 import bckImg from '../fondo-stake.jpg';
 import React, {useState, useEffect}  from 'react';
 import Spinner from "react-bootstrap/Spinner";
-import {findUserDownline} from "../utils.js";
+import {findUserDownline, getUserReferralAmount} from "../utils.js";
 
 function Referr(props) {
 
     const [loading, setLoading] = useState(false);
     const [userDownline, setUserDownline] = useState(0);
+    const [userReferralTotalBonus, setUserReferralTotalBonus] = useState(0);
+    const [userReferralWithdrawn, setUserReferralWithdrawn] = useState(0);
     const [referralLink, setReferralLink] = useState("");
     // const [totalStake, setTotalStale] = useState(0);
 
@@ -16,9 +18,13 @@ function Referr(props) {
             try {
                 setLoading(true);
                 if (props.web3 === undefined) return;
-                const userDownline = await findUserDownline(props.web3, (await props.web3.eth.getAccounts())[0]);
+                const account = (await props.web3.eth.getAccounts())[0]
+                const userDownline = await findUserDownline(props.web3, account);
+                const {totalBonus, bonusWithdrawn} = await getUserReferralAmount(props.web3, account);
                 setUserDownline(userDownline);
-                setReferralLink("https://www.xyz.app/?ref="+props.account);
+                setUserReferralTotalBonus(totalBonus)
+                setUserReferralWithdrawn(bonusWithdrawn)
+                setReferralLink("https://www.xyz.app/?ref="+account);
                 setLoading(false);
             } catch (e) {
                 console.error(`Error at Referr ${e.message}`);
@@ -90,14 +96,14 @@ function Referr(props) {
 						<div className="flex-row" style={{ marginTop: 25 }}>
 							<div className="flex-col" style={{ width: "33%", padding: 0 }}>
 								<p className="sm-txt">Total Referral Earned</p>
-								<p className="bg-txt">0.000</p>
+								<p className="bg-txt">{userReferralTotalBonus}</p>
 								<p className="sm-txt">Invited Users by You</p>
 								<p className="bg-txt">{userDownline}</p>
 							</div>
 
 							<div className="flex-col" style={{ width: "33%", padding: 0 }}>
 								<p className="sm-txt">Total Referral Withdrawn</p>
-								<p className="bg-txt">0.000</p>
+								<p className="bg-txt">{userReferralWithdrawn}</p>
 							</div>
 
 							<div className="flex-col" style={{ width: "33%", padding: 0 }}>
