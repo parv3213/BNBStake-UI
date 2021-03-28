@@ -28,7 +28,7 @@ function Hero(props) {
 
 	return (
 		<div className="Hero">
-			{loading === true ? <Spinner className="text-align-center" animation="border" role="status" /> : null}
+			{loading === true ? <Spinner /> : null}
 
 			<div
 				id="basic-info"

@@ -85,37 +85,14 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<header className="App-header">
-				<div className="container">
-					<div id="logo" className="flex-row">
-						<img src={cake}></img>
-						<p className="bg-txt">
-							<span>CAKE</span>Stake
-						</p>
-					</div>
-					<div id="wallet">{account}</div>
-
-					<div style={{ width: '25%' }}></div>
-
-					<div id="cake-price" className="sm-txt">
-						<span>1 BNB = </span>${101}
-					</div>
-					<div id="header-buttons" className="flex-row">
-						<div className="cta">Support</div>
-						<div className="cta">Telegram</div>
-						<div className="cta">Audit</div>
-						<div className="cta">Help</div>
-						<div className="cta">Presentation</div>
-					</div>
-				</div>
-			</header>
 			<div className="container">
-				{loading === true ? <Spinner className="text-align-center" animation="border" role="status" /> : null}
+				<Header account={account} />
+				{loading === true ? <Spinner /> : null}
 
 				<Hero web3={web3} />
-				<Cards />
+				<Cards web3={web3} />
 				<Referr web3={web3} />
-				<Stake />
+				{/* <Stake /> */}
 				<img src={footerImg} style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
 				<Footer />
 			</div>

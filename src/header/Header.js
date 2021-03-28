@@ -4,7 +4,7 @@ import logo from '../logo.svg'
 import cake from '../cake.webp'
 import './Header.css'
 
-function Header() {
+function Header(props) {
 	if (document.getElementById('web3-load-warning')) {
 		return <div></div>
 	}
@@ -18,12 +18,12 @@ function Header() {
 							<span>CAKE</span>Stake
 						</p>
 					</div>
-					<div id="wallet">0x0000</div>
+					<div id="wallet">{props.account}</div>
 
 					<div style={{ width: '25%' }}></div>
 
 					<div id="cake-price" className="sm-txt">
-						<span>1 BNB = </span>$0.00
+						<span>1 BNB = </span>${101}
 					</div>
 					<div id="header-buttons" className="flex-row">
 						<div className="cta">Support</div>

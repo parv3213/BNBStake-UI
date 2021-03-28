@@ -42,7 +42,7 @@ function Referr(props) {
 	const userWithdraw = async () => {
 		try {
 			setLoading(true)
-			if (props.web3 === undefined) throw new Error('Web3 not defined')
+			if (props.web3 === undefined) return
 			await withdraw(props.web3, (await props.web3.eth.getAccounts())[0])
 			setLoading(false)
 		} catch (e) {
@@ -54,7 +54,7 @@ function Referr(props) {
 
 	return (
 		<div className="Referr">
-			{loading === true ? <Spinner className="text-align-center" animation="border" role="status" /> : null}
+			{loading === true ? <Spinner /> : null}
 			<p className="sm-txt" style={{ margin: 0, marginBottom: 15 }}>
 				1. Important: Plans return are float and daily profit for a new deposit will increase by 0.5% daily
 				<br></br>
@@ -87,7 +87,7 @@ function Referr(props) {
 						</p>
 
 						<div className="flex-row">
-							<div className="input">{referralLink}</div>
+							<div className="input sm-txt">{referralLink}</div>
 							<a
 								className="cta"
 								style={{ marginRight: 15 }}
@@ -123,11 +123,12 @@ function Referr(props) {
 
 							<div className="flex-col" style={{ width: '33%', padding: 0 }}>
 								<p className="sm-txt">Earn for promotion BNBstake</p>
+								<br></br>
 								<p className="sm-txt">You will receive:</p>
 								<br></br>
-								<p className="sm-txt">5% from each level 1 referral deposits</p>
-								<p className="sm-txt">2.5% from each level 2 referral deposits</p>
-								<p className="sm-txt">0.5% from each level 3 referral deposits</p>
+								<p className="sm-txt font-size-0.75">5% from each level 1 referral deposits</p>
+								<p className="sm-txt font-size-0.75">2.5% from each level 2 referral deposits</p>
+								<p className="sm-txt font-size-0.75">0.5% from each level 3 referral deposits</p>
 								<br></br>
 								<p className="sm-txt italic">
 									Note! You need to have at least 1 deposit to start receive earnings

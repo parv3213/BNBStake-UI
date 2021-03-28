@@ -1,52 +1,46 @@
 import './Cards.css'
 import Card from '../card/Card'
-import React, { useState, useEffect } from 'react'
-import { totalStaked, totalBalance } from '../utils.js'
+import React from 'react'
 
-function Cards() {
-	const [loading, setLoading] = useState(false)
-
-	useEffect(() => {
-		const init = async () => {
-			try {
-				setLoading(true)
-				if (props.web3 === undefined) return
-				const _totalStake = await totalStaked(props.web3)
-				const _totalBalance = await totalBalance(props.web3)
-				setTotalStale(_totalStake)
-				setTotalBalanceOf(_totalBalance)
-				setLoading(false)
-			} catch (e) {
-				console.error(`Error at Cards ${e.message}`)
-			}
-		}
-		init()
-	}, [props])
-
+function Cards(props) {
 	return (
 		<div className="Cards">
-			{loading === true ? <Spinner className="text-align-center" animation="border" role="status" /> : null}
 			<div className="flex-row">
 				<div className="flex-col">
-					<Card />
+					<Card web3={props.web3} plan="1" warning={''} withdrawTime={'Any Time'} />
 				</div>
 				<div className="flex-col">
-					<Card />
+					<Card web3={props.web3} plan="2" warning={''} withdrawTime={'Any Time'} />
 				</div>
 				<div className="flex-col">
-					<Card />
+					<Card web3={props.web3} plan="3" warning={''} withdrawTime={'Any Time'} />
 				</div>
 			</div>
 
 			<div className="flex-row">
 				<div className="flex-col" style={{ marginTop: 25 }}>
-					<Card />
+					<Card
+						web3={props.web3}
+						plan="4"
+						warning={'* plan use capitalization of interest'}
+						withdrawTime={'End of Plan'}
+					/>
 				</div>
 				<div className="flex-col" style={{ marginTop: 25 }}>
-					<Card />
+					<Card
+						web3={props.web3}
+						plan="5"
+						warning={'* plan use capitalization of interest'}
+						withdrawTime={'End of Plan'}
+					/>
 				</div>
 				<div className="flex-col" style={{ marginTop: 25 }}>
-					<Card />
+					<Card
+						web3={props.web3}
+						plan="6"
+						warning={'* plan use capitalization of interest'}
+						withdrawTime={'End of Plan'}
+					/>
 				</div>
 			</div>
 		</div>

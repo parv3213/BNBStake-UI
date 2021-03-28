@@ -50,18 +50,30 @@ const withdraw = async (web3, account) => {
 	}
 }
 
-const getUserAvailable = async (web3, account) => {
-	const contractInstance = await contractInstanceMethod(web3)
-	const userAvailable = ((await contractInstance.methods.getUserAvailable(account).call()) / 1e18).toFixed(3)
-	return userAvailable
-}
-
-const invest = async (web3, account, referrer, plan, value) => {
+const getResult = async (web3, plan, deposit) => {
 	try {
 		const contractInstance = await contractInstanceMethod(web3)
+		let { profit, current, finish } = await contractInstance.methods.getResult(plan, deposit).call()
+		const totalReturn = (profit / deposit) * 100
+		const days = (finish - current) / (24 * 60 * 60)
+		const dailyProfit = totalReturn / days
+		return { profit, totalReturn, days, dailyProfit }
+	} catch (e) {
+		console.log(e)
+	}
+	// console.log(web3.eth.abi.encodeParameter(['uint8']), [10])
+	// const uint8 = new Uint8Array([plan])
+	// return userAvailable
+}
+
+const invest = async (web3, referrer, plan, value) => {
+	try {
+		const contractInstance = await contractInstanceMethod(web3)
+		const account = (await web3.eth.getAccounts())[0]
+		console.log(referrer, plan, value)
 		await contractInstance.methods
-			.invest(referrer, plan, value)
-			.send({ from: account })
+			.invest(referrer, plan)
+			.send({ from: account, value })
 			.on('transactionHash', (transactionHash) => transactionHash)
 			.on('error', (error) => error)
 	} catch (e) {
@@ -83,4 +95,6 @@ export {
 	getUserTotalDeposits,
 	getUserAvailable,
 	withdraw,
+	getResult,
+	invest,
 }
