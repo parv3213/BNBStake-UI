@@ -18,6 +18,7 @@ function Hero(props) {
                 const _totalBalance = await totalBalance(props.web3);
                 setTotalStale(_totalStake)
                 setTotalBalanceOf(_totalBalance)
+                setLoading(false);
             } catch (e) {
                 console.error(`Error at Hero ${e.message}`);
             }
