@@ -42,7 +42,7 @@ function Hero(props) {
 				<p>Minimal deposit: 0.05 BNB, no maximal limit</p>
 				<p>
 					Earnings every moment, withdraw any time (if you use capitalization of interest you can withdraw
-					only after end of your deposit)
+					only after end of your deposit or anytime before at 50% penalty)
 				</p>
 			</div>
 
