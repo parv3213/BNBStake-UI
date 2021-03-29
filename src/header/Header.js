@@ -56,7 +56,7 @@ function Header(props) {
 							<a
 								href="https://bscscan.com/block/countdown/6130990"
 								rel="noreferrer">
-								Release Countdown
+								Stake Countdown
 							</a>
 						</div>
 					</div>
