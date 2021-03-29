@@ -8,7 +8,7 @@ function Card(props) {
 	const [deposit, setDeposit] = useState(undefined)
 	const [profit, setProfit] = useState('0')
 	const [totalReturn, setTotalReturn] = useState('')
-	const [days, setDays] = useState('')
+	const [days, setDays] = useState(0)
 	const [dailyProfit, setDailyProfit] = useState('')
 
 	useEffect(() => {

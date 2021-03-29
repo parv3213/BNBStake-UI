@@ -28,37 +28,33 @@ function Header(props) {
 						{props.account.slice(0, 6) + '...' + props.account.slice(-4)}
 					</span>
 
-					<div style={{ width: '25%' }}></div>
+					{/* <div style={{ width: '25%' }}></div> */}
 
-					{/* <div id="stake-price" className="sm-txt">
-						<span>1 BNB = </span>${101}
-					</div> */}
+					<div id="stake-price" className="sm-txt">
+						<span style={{ overflow: 'hidden', 'white-space': 'nowrap' }}>1 BNB = ${101}</span>
+					</div>
 					<div id="header-buttons" className="flex-row">
-						<div className="cta">
-							<a href="http://t.me/bfarmsupport" rel="noreferrer">
-								Support
-							</a>
-						</div>
-						<div className="cta">
-							<a href="http://t.me/bfarmfinance" rel="noreferrer">
-								Telegram
-							</a>
-						</div>
-						<div className="cta">Audit</div>
-						<div className="cta">
-							<a
-								href="https://drive.google.com/file/d/1zJ3YlovapSYVAQB6W1nPTiqfd-_09PHW/view?usp=sharing"
-								rel="noreferrer">
-								Presentation
-							</a>
-						</div>
-<div className="cta">
-							<a
-								href="https://bscscan.com/block/countdown/6130990"
-								rel="noreferrer">
-								Stake Countdown
-							</a>
-						</div>
+						<a className="btn btn-primary ml-1" href="http://t.me/bfarmsupport" rel="noreferrer">
+							Support
+						</a>
+						<a className="btn btn-primary ml-1" href="http://t.me/bfarmfinance" rel="noreferrer">
+							Telegram
+						</a>
+						<a className="btn btn-primary ml-1" href="#" rel="noreferrer">
+							Audit
+						</a>
+						<a
+							className="btn btn-primary ml-1"
+							href="https://drive.google.com/file/d/1zJ3YlovapSYVAQB6W1nPTiqfd-_09PHW/view?usp=sharing"
+							rel="noreferrer">
+							Presentation
+						</a>
+						<a
+							className="btn btn-primary ml-1"
+							href="https://bscscan.com/block/countdown/6130990"
+							rel="noreferrer">
+							Stake Countdown
+						</a>
 					</div>
 				</div>
 			</header>

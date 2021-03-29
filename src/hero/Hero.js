@@ -38,7 +38,10 @@ function Hero(props) {
 					backgroundPosition: 'center left',
 				}}>
 				<p>Total income: based on your tarrif plan (from 5% to 8% daily, increasing daily)</p>
-				<p>Basic interest rate: +0.3% every 24 hours - only for new deposits, plan length reduces -0.25 days every day</p>
+				<p>
+					Basic interest rate: +0.3% every 24 hours - only for new deposits, plan length reduces -0.25 days
+					every day
+				</p>
 				<p>Minimal deposit: 0.05 BNB, no maximal limit</p>
 				<p>
 					Earnings every moment, withdraw any time (if you use capitalization of interest you can withdraw
@@ -48,12 +51,16 @@ function Hero(props) {
 
 			<div id="balance">
 				<div>
-					<div className="d-flex flex-row">
+					<p className="d-flex flex-row">
 						Total BNB Staked
-						<div className="cta" style={{ marginLeft: 5, alignItems: 'center' }}>
-							<a href="https://bscscan.com/address/0xa24c2687372e94f63789c297a2e6173af8d6bfce" rel="noreferrer">Contract</a>
-						</div>
-					</div>
+						<a
+							className="btn btn-secondary btn-sm"
+							href="https://bscscan.com/address/0xa24c2687372e94f63789c297a2e6173af8d6bfce"
+							rel="noreferrer"
+							style={{ marginLeft: 5, alignItems: 'center' }}>
+							Contract
+						</a>
+					</p>
 					<h2>{totalStake.toFixed(3)}</h2>
 				</div>
 
