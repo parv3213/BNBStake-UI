@@ -35,10 +35,9 @@ function Header(props) {
 					</div>
 					<div id="header-buttons" className="flex-row">
 						<div className="cta"><a href="http://t.me/bfarmsupport" rel="noreferrer">Support</a></div>
-						<div className="cta">Telegram</div>
+						<div className="cta"><a href="http://t.me/bfarmfinance" rel="noreferrer">Telegram</a></div>
 						<div className="cta">Audit</div>
-						<div className="cta">Help</div>
-						<div className="cta">Presentation</div>
+						<div className="cta"><a href="https://drive.google.com/file/d/1zJ3YlovapSYVAQB6W1nPTiqfd-_09PHW/view?usp=sharing" rel="noreferrer">Presentation</a></div>
 					</div>
 				</div>
 			</header>
