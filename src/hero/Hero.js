@@ -38,7 +38,7 @@ function Hero(props) {
 					backgroundPosition: 'center left',
 				}}>
 				<p>Total income: based on your tarrif plan (from 5% to 8% daily, increasing daily)</p>
-				<p>Basic interest rate: +0.3% every 24 hours - only for new deposits, plan length reduces -0.25 daily</p>
+				<p>Basic interest rate: +0.3% every 24 hours - only for new deposits, plan length reduces -0.25 days every day</p>
 				<p>Minimal deposit: 0.05 BNB, no maximal limit</p>
 				<p>
 					Earnings every moment, withdraw any time (if you use capitalization of interest you can withdraw
