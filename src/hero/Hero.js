@@ -51,7 +51,7 @@ function Hero(props) {
 					<div className="d-flex flex-row">
 						Total BNB Staked
 						<div className="cta" style={{ marginLeft: 5, alignItems: 'center' }}>
-							Contract
+							<a href="https://bscscan.com/address/0x0ac7719cb1969c6cdb552bdf918768dd593c04ba" rel="noreferrer">Contract</a>
 						</div>
 					</div>
 					<h2>{totalStake.toFixed(3)}</h2>
