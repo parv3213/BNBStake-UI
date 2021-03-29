@@ -96,7 +96,7 @@ function Card(props) {
 						placeholder="10"
 						type="text"
 						id="plan0amount"
-						className="btn-secondary form-control form-control-lg mt-2"
+						className="btn btn-dark form-control form-control-lg mt-2"
 						onInput={(e) => {
 							setDeposit(e.target.value)
 							calculateProfit(e.target.value)

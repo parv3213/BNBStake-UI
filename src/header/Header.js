@@ -15,14 +15,14 @@ function Header(props) {
 					<div id="logo" className="flex-row">
 						<img src={cake}></img>
 						<p className="bg-txt">
-							<span>CAKE</span>Stake
+							<span>BNB</span>Stake
 						</p>
 					</div>
 					<div id="wallet">{props.account}</div>
 
 					<div style={{ width: '25%' }}></div>
 
-					<div id="cake-price" className="sm-txt">
+					<div id="stake-price" className="sm-txt">
 						<span>1 BNB = </span>${101}
 					</div>
 					<div id="header-buttons" className="flex-row">
