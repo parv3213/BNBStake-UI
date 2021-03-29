@@ -34,7 +34,7 @@ function Header(props) {
 						<span>1 BNB = </span>${101}
 					</div>
 					<div id="header-buttons" className="flex-row">
-						<div className="cta">Support</div>
+						<div className="cta"><a href="http://t.me/bfarmsupport" rel="noreferrer">Support</a></div>
 						<div className="cta">Telegram</div>
 						<div className="cta">Audit</div>
 						<div className="cta">Help</div>
