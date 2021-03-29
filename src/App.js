@@ -6,7 +6,7 @@ import Header from './header/Header'
 import Hero from './hero/Hero'
 import Cards from './cards/Cards'
 import Referr from './referr/Referr'
-// import Stake from './stake/Stake'
+import Stake from './stake/Stake'
 import Footer from './footer/Footer'
 import footerImg from './footer.png'
 import './App.css'
@@ -92,7 +92,7 @@ export default function App() {
 				<Hero web3={web3} />
 				<Cards web3={web3} />
 				<Referr web3={web3} />
-				{/* <Stake /> */}
+				<Stake web3={web3} />
 				<img
 					src={footerImg}
 					alt="footer-img"

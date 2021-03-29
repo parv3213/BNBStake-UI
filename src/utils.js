@@ -61,9 +61,26 @@ const getResult = async (web3, plan, deposit) => {
 	} catch (e) {
 		console.log(e)
 	}
-	// console.log(web3.eth.abi.encodeParameter(['uint8']), [10])
-	// const uint8 = new Uint8Array([plan])
-	// return userAvailable
+}
+
+const getUserAmountOfDeposits = async (web3) => {
+	const contractInstance = await contractInstanceMethod(web3)
+	const account = (await web3.eth.getAccounts())[0]
+	const userAmountDeposits = (await contractInstance.methods.getUserAmountOfDeposits(account).call()) / 1
+	return userAmountDeposits
+}
+
+const getUserDepositInfo = async (web3, index) => {
+	try {
+		const contractInstance = await contractInstanceMethod(web3)
+		const account = (await web3.eth.getAccounts())[0]
+		let { plan, percent, amount, profit, start, finish } = await contractInstance.methods
+			.getUserDepositInfo(account, index)
+			.call()
+		return { plan, percent, amount, profit, start, finish }
+	} catch (e) {
+		console.log(e)
+	}
 }
 
 const invest = async (web3, referrer, plan, value) => {
@@ -97,4 +114,6 @@ export {
 	withdraw,
 	getResult,
 	invest,
+	getUserAmountOfDeposits,
+	getUserDepositInfo,
 }
