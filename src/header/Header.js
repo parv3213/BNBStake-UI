@@ -21,7 +21,7 @@ function Header(props) {
 					<div id="logo" className="flex-row">
 						<img src={cake} alt="platform-logo"></img>
 						<p className="bg-txt">
-							<span>BNB</span>Stake
+							<span>B</span>Farm
 						</p>
 					</div>
 					<span id="wallet" onClick={handleShow} className="ml-3">
