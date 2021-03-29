@@ -52,6 +52,13 @@ function Header(props) {
 								Presentation
 							</a>
 						</div>
+<div className="cta">
+							<a
+								href="https://bscscan.com/block/countdown/6130990"
+								rel="noreferrer">
+								Release Countdown
+							</a>
+						</div>
 					</div>
 				</div>
 			</header>
