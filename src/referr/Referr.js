@@ -26,7 +26,6 @@ function Referr(props) {
 				const totalDeposit = await getUserTotalDeposits(props.web3, account)
 				const userAvailable = await getUserAvailable(props.web3, account)
 				const domain = window.location.href.split('?')[0]
-				console.log(domain)
 				setUserDownline(userDownline)
 				setUserReferralTotalBonus(totalBonus)
 				setUserReferralWithdrawn(bonusWithdrawn)

@@ -10,12 +10,14 @@ import Stake from './stake/Stake'
 import Footer from './footer/Footer'
 import footerImg from './footer.png'
 import './App.css'
+import { getBNBPrice } from './utils'
 
 const { REACT_APP_NETWORK_ID } = process.env
 
 export default function App() {
 	const [web3, setWeb3] = useState(undefined)
 	const [account, setAccount] = useState('')
+	const [bnbPrice, setBnbPrice] = useState(0)
 	const [metamaskChange, setMetaMaskChange] = useState(true)
 	const [wrongNetwork, setWrongNetwork] = useState(false)
 	const [loading, setLoading] = useState(true)
@@ -54,7 +56,8 @@ export default function App() {
 				console.log('Not correct', networkId, REACT_APP_NETWORK_ID)
 				setWrongNetwork(true)
 			}
-
+			const bnbPrice = await getBNBPrice(web3)
+			setBnbPrice(bnbPrice)
 			setWeb3(web3)
 			setAccount(account)
 		}
@@ -77,7 +80,7 @@ export default function App() {
 	return (
 		<div className="App">
 			<div className="container">
-				<Header account={account} />
+				<Header account={account} bnbPrice={bnbPrice} />
 				{loading === true ? <Spinner /> : null}
 
 				<Hero web3={web3} />

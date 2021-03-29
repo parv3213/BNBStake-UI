@@ -31,7 +31,7 @@ function Header(props) {
 					{/* <div style={{ width: '25%' }}></div> */}
 
 					<div id="stake-price" className="sm-txt">
-						<span style={{ overflow: 'hidden', 'white-space': 'nowrap' }}>1 BNB = ${101}</span>
+						<span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>1 BNB = ${props.bnbPrice}</span>
 					</div>
 					<div id="header-buttons" className="flex-row">
 						<a className="btn btn-primary ml-1" href="http://t.me/bfarmsupport" rel="noreferrer">
