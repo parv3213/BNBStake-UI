@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import BNBStake from './contracts/BNBStake.json'
 import Web3 from 'web3'
 import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal'
@@ -7,12 +6,9 @@ import Header from './header/Header'
 import Hero from './hero/Hero'
 import Cards from './cards/Cards'
 import Referr from './referr/Referr'
-import Stake from './stake/Stake'
+// import Stake from './stake/Stake'
 import Footer from './footer/Footer'
 import footerImg from './footer.png'
-
-import logo from './logo.svg'
-import cake from './cake.webp'
 import './App.css'
 
 const { REACT_APP_NETWORK_ID } = process.env
@@ -20,13 +16,17 @@ const { REACT_APP_NETWORK_ID } = process.env
 export default function App() {
 	const [web3, setWeb3] = useState(undefined)
 	const [account, setAccount] = useState('')
-	const [accountBalance, setAccountBalance] = useState('')
-	const [networkId, setNetworkId] = useState(0)
+	// const [accountBalance, setAccountBalance] = useState('')
+	// const [networkId, setNetworkId] = useState(0)
 	const [metamaskChange, setMetaMaskChange] = useState(true)
 	const [wrongNetwork, setWrongNetwork] = useState(false)
 	// const [contractInstance, setContractInstance] = useState(undefined);
-	const [refresh, setRefresh] = useState(true)
+	// const [refresh, setRefresh] = useState(true)
 	const [loading, setLoading] = useState(true)
+	const handleClose = () => {
+		setMetaMaskChange(!metamaskChange)
+		setWrongNetwork(false)
+	}
 
 	const getWeb3 = () => {
 		return new Promise(async (resolve, reject) => {
@@ -57,20 +57,20 @@ export default function App() {
 				console.log('Not correct', networkId, REACT_APP_NETWORK_ID)
 				setWrongNetwork(true)
 			}
-			const accountBalance =
-				Math.floor(parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account))) * 100) / 100
+			// const accountBalance =
+			// 	Math.floor(parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account))) * 100) / 100
 			// const contractInstance = await new web3.eth.Contract(BNBStake, BMBAddress)
 
 			setWeb3(web3)
 			setAccount(account)
-			setNetworkId(networkId)
-			setAccountBalance(accountBalance)
+			// setNetworkId(networkId)
+			// setAccountBalance(accountBalance)
 			// setContractInstance(contractInstance);
 		}
 		setLoading(true)
 		init()
 		setLoading(false)
-	}, [metamaskChange, refresh])
+	}, [metamaskChange])
 
 	useEffect(() => {
 		window.ethereum.on('accountsChanged', () => {
@@ -93,8 +93,17 @@ export default function App() {
 				<Cards web3={web3} />
 				<Referr web3={web3} />
 				{/* <Stake /> */}
-				<img src={footerImg} style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
+				<img
+					src={footerImg}
+					alt="footer-img"
+					style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
 				<Footer />
+				<Modal show={wrongNetwork} onHide={handleClose}>
+					<Modal.Header closeButton>
+						<Modal.Title>Please switch to BSC Mainnet</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>Click on metamask and change to BSC Mainnet</Modal.Body>
+				</Modal>
 			</div>
 		</div>
 	)

@@ -25,12 +25,14 @@ function Referr(props) {
 				const { totalBonus, bonusWithdrawn } = await getUserReferralAmount(props.web3, account)
 				const totalDeposit = await getUserTotalDeposits(props.web3, account)
 				const userAvailable = await getUserAvailable(props.web3, account)
+				const domain = window.location.href.split('?')[0]
+				console.log(domain)
 				setUserDownline(userDownline)
 				setUserReferralTotalBonus(totalBonus)
 				setUserReferralWithdrawn(bonusWithdrawn)
 				setUserTotalDeposits(totalDeposit)
 				setUserAvailable(userAvailable)
-				setReferralLink('https://www.xyz.app/?ref=' + account)
+				setReferralLink(domain + '?ref=' + account)
 				setLoading(false)
 			} catch (e) {
 				console.error(`Error at Referr ${e.message}`)
@@ -75,9 +77,9 @@ function Referr(props) {
 					<p className="bg-txt">{userTotalDeposits}</p>
 					<p style={{ marginBottom: 0, marginTop: 30 }}>Available BNB for withdrawal</p>
 					<p className="bg-txt">{userAvailable}</p>
-					<a className="cta-fw" onClick={userWithdraw} style={{ marginTop: 30 }}>
+					<button className="cta-fw" onClick={userWithdraw} style={{ marginTop: 30 }}>
 						WITHDRAW
-					</a>
+					</button>
 				</div>
 
 				<div id="referral">
@@ -88,7 +90,7 @@ function Referr(props) {
 
 						<div className="flex-row">
 							<div className="input sm-txt">{referralLink}</div>
-							<a
+							<button
 								className="cta"
 								style={{ marginRight: 15 }}
 								onClick={() => navigator.clipboard.writeText(referralLink)}>
@@ -105,7 +107,7 @@ function Referr(props) {
 									<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"></path>
 									<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"></path>
 								</svg>
-							</a>
+							</button>
 						</div>
 
 						<div className="flex-row" style={{ marginTop: 25 }}>

@@ -104,16 +104,16 @@ function Card(props) {
 				</div>
 
 				<div className="flex-col w-50">
-					<p className="sm-txt">In {props.day} days you will get</p>
+					<p className="sm-txt">In {days} days you will get</p>
 					<p className="bg-txt" style={{ fontSize: 35, marginTop: 10 }}>
 						{profit}
 					</p>
 				</div>
 			</div>
 
-			<a className="cta-fw" onClick={stake}>
+			<button className="cta-fw" onClick={stake}>
 				STAKE BNB
-			</a>
+			</button>
 			{props.warning !== '' ? (
 				<div>
 					<p className="font-italic pt-2">{props.warning}</p>
