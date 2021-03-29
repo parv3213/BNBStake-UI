@@ -16,12 +16,8 @@ const { REACT_APP_NETWORK_ID } = process.env
 export default function App() {
 	const [web3, setWeb3] = useState(undefined)
 	const [account, setAccount] = useState('')
-	// const [accountBalance, setAccountBalance] = useState('')
-	// const [networkId, setNetworkId] = useState(0)
 	const [metamaskChange, setMetaMaskChange] = useState(true)
 	const [wrongNetwork, setWrongNetwork] = useState(false)
-	// const [contractInstance, setContractInstance] = useState(undefined);
-	// const [refresh, setRefresh] = useState(true)
 	const [loading, setLoading] = useState(true)
 	const handleClose = () => {
 		setMetaMaskChange(!metamaskChange)
@@ -43,7 +39,7 @@ export default function App() {
 				resolve(window.web3)
 			} else {
 				window.alert('Must install Metamask Extension!\nDApp will not load')
-				reject('Must install Metamask Extension!')
+				// resolve('Must install Metamask Extension!')
 			}
 		})
 	}
@@ -51,37 +47,32 @@ export default function App() {
 	useEffect(() => {
 		const init = async () => {
 			const web3 = await getWeb3()
+			if (web3 === undefined) return
 			const account = (await web3.eth.getAccounts())[0]
 			const networkId = await web3.eth.net.getId()
 			if (networkId !== parseInt(REACT_APP_NETWORK_ID)) {
 				console.log('Not correct', networkId, REACT_APP_NETWORK_ID)
 				setWrongNetwork(true)
 			}
-			// const accountBalance =
-			// 	Math.floor(parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account))) * 100) / 100
-			// const contractInstance = await new web3.eth.Contract(BNBStake, BMBAddress)
 
 			setWeb3(web3)
 			setAccount(account)
-			// setNetworkId(networkId)
-			// setAccountBalance(accountBalance)
-			// setContractInstance(contractInstance);
 		}
 		setLoading(true)
 		init()
 		setLoading(false)
 	}, [metamaskChange])
 
-	useEffect(() => {
-		window.ethereum.on('accountsChanged', () => {
-			console.warn('Account changed')
-			setMetaMaskChange((m) => !m)
-		})
-		window.ethereum.on('chainChanged', () => {
-			console.warn('Chain changed')
-			setMetaMaskChange((m) => !m)
-		})
-	}, [])
+	// useEffect(() => {
+	// 	window.ethereum.on('accountsChanged', () => {
+	// 		console.warn('Account changed')
+	// 		setMetaMaskChange((m) => !m)
+	// 	})
+	// 	window.ethereum.on('chainChanged', () => {
+	// 		console.warn('Chain changed')
+	// 		setMetaMaskChange((m) => !m)
+	// 	})
+	// }, [])
 
 	return (
 		<div className="App">
