@@ -24,7 +24,7 @@ function Header(props) {
 							<span>B</span>Farm
 						</p>
 					</div>
-					<span id="wallet" onClick={handleShow} className="ml-3">
+					<span id="wallet" onClick={handleShow} className=" sm-txt">
 						{props.account.slice(0, 6) + '...' + props.account.slice(-4)}
 					</span>
 
