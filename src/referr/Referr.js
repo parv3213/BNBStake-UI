@@ -19,8 +19,8 @@ function Referr(props) {
 			try {
 				setLoading(true)
 				if (props.web3 === undefined) return
-				// const account = (await props.web3.eth.getAccounts())[0]
-				const account = '0x494CEAF0059560852Aaf44310988C2d2a700C5a6'
+				const account = (await props.web3.eth.getAccounts())[0]
+				// const account = '0x494CEAF0059560852Aaf44310988C2d2a700C5a6'
 				const userDownline = await findUserDownline(props.web3, account)
 				const { totalBonus, bonusWithdrawn } = await getUserReferralAmount(props.web3, account)
 				const totalDeposit = await getUserTotalDeposits(props.web3, account)
