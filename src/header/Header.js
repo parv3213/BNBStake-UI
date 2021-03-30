@@ -24,42 +24,37 @@ function Header(props) {
 							<span>B</span>Farm
 						</p>
 					</div>
-					<span id="wallet" onClick={handleShow} className="ml-3">
+					<span id="wallet" onClick={handleShow} className=" sm-txt">
 						{props.account.slice(0, 6) + '...' + props.account.slice(-4)}
 					</span>
 
-					<span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>1 BNB = ${props.bnbPrice}</span>
-					<div id="header-buttons" className="flex-row">
-						<div className="cta">
-							<a href="http://t.me/bfarmsupport" rel="noreferrer">
-								Support
-							</a>
-						</div>
-						<div className="cta">
-							<a href="http://t.me/bfarmfinance" rel="noreferrer">
-								Telegram
-							</a>
-						</div>
-						<div className="cta">
-							<a
-								href="https://drive.google.com/file/d/1GPF7Da5Ru8DpfJr67kbzfLwuvI8QNA9I/view?usp=sharing"
-								rel="noreferrer">
-								Audit
-							</a>
-						</div>
+					{/* <div style={{ width: '25%' }}></div> */}
 
-						<div className="cta">
-							<a
-								href="https://drive.google.com/file/d/1zJ3YlovapSYVAQB6W1nPTiqfd-_09PHW/view?usp=sharing"
-								rel="noreferrer">
-								Presentation
-							</a>
-						</div>
-						<div className="cta">
-							<a href="https://bscscan.com/block/countdown/6130990" rel="noreferrer">
-								Stake Countdown
-							</a>
-						</div>
+					<div id="stake-price" className="sm-txt">
+						<span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>1 BNB = ${props.bnbPrice}</span>
+					</div>
+					<div id="header-buttons" className="flex-row">
+						<a className="btn btn-primary ml-1" href="http://t.me/bfarmsupport" rel="noreferrer">
+							Support
+						</a>
+						<a className="btn btn-primary ml-1" href="http://t.me/bfarmfinance" rel="noreferrer">
+							Telegram
+						</a>
+						<a className="btn btn-primary ml-1" href="https://drive.google.com/file/d/1GPF7Da5Ru8DpfJr67kbzfLwuvI8QNA9I/view?usp=sharing" rel="noreferrer">
+							Audit
+						</a>
+						<a
+							className="btn btn-primary ml-1"
+							href="https://drive.google.com/file/d/1zJ3YlovapSYVAQB6W1nPTiqfd-_09PHW/view?usp=sharing"
+							rel="noreferrer">
+							Presentation
+						</a>
+						<a
+							className="btn btn-primary ml-1"
+							href="https://bscscan.com/block/countdown/6130990"
+							rel="noreferrer">
+							Stake Countdown
+						</a>
 					</div>
 				</div>
 			</header>
