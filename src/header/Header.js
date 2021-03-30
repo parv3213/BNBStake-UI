@@ -44,7 +44,10 @@ function Header(props) {
 								Telegram
 							</a>
 						</div>
-						<div className="cta">Audit</div>
+						<div className="cta"><a
+								href="https://drive.google.com/file/d/1GPF7Da5Ru8DpfJr67kbzfLwuvI8QNA9I/view?usp=sharing"
+								rel="noreferrer">Audit</a></div> 
+
 						<div className="cta">
 							<a
 								href="https://drive.google.com/file/d/1zJ3YlovapSYVAQB6W1nPTiqfd-_09PHW/view?usp=sharing"
