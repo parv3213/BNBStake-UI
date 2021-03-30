@@ -1,6 +1,8 @@
 import BNBStake from './contracts/BNBStake.json'
+import BNBTokenStake from './contracts/BNBTokenStake.json'
 import BNBOracle from './contracts/BNBOracle.json'
-const BMBAddress = process.env.REACT_APP_BNBAddress
+const BNBAddress = process.env.REACT_APP_BNBAddress
+const BNBTokenAddress = process.env.REACT_APP_BNBTokenAddress
 
 const totalStaked = async (web3) => {
 	const contractInstance = await contractInstanceMethod(web3)
@@ -8,7 +10,12 @@ const totalStaked = async (web3) => {
 }
 
 const totalBalance = async (web3) => {
-	return (await web3.eth.getBalance(BMBAddress)) / 1e18
+	const domain = window.location.href.split('?')[0]
+	if (domain.indexOf('/busd') === -1) {
+		return (await web3.eth.getBalance(BNBAddress)) / 1e18
+	} else {
+		return (await web3.eth.getBalance(BNBTokenAddress)) / 1e18
+	}
 }
 
 const findUserDownline = async (web3, account) => {
@@ -110,7 +117,12 @@ const getBNBPrice = async (web3) => {
 }
 
 const contractInstanceMethod = async (web3) => {
-	return await new web3.eth.Contract(BNBStake, BMBAddress)
+	const domain = window.location.href.split('?')[0]
+	if (domain.indexOf('/busd') === -1) {
+		return await new web3.eth.Contract(BNBStake, BNBAddress)
+	} else {
+		return await new web3.eth.Contract(BNBTokenStake, BNBTokenAddress)
+	}
 }
 
 export {
