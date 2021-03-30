@@ -28,11 +28,7 @@ function Header(props) {
 						{props.account.slice(0, 6) + '...' + props.account.slice(-4)}
 					</span>
 
-					<div style={{ width: '25%' }}></div>
-
-					{/* <div id="stake-price" className="sm-txt">
-						<span>1 BNB = </span>${101}
-					</div> */}
+					<span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>1 BNB = ${props.bnbPrice}</span>
 					<div id="header-buttons" className="flex-row">
 						<div className="cta">
 							<a href="http://t.me/bfarmsupport" rel="noreferrer">
@@ -44,9 +40,13 @@ function Header(props) {
 								Telegram
 							</a>
 						</div>
-						<div className="cta"><a
+						<div className="cta">
+							<a
 								href="https://drive.google.com/file/d/1GPF7Da5Ru8DpfJr67kbzfLwuvI8QNA9I/view?usp=sharing"
-								rel="noreferrer">Audit</a></div> 
+								rel="noreferrer">
+								Audit
+							</a>
+						</div>
 
 						<div className="cta">
 							<a
@@ -55,10 +55,8 @@ function Header(props) {
 								Presentation
 							</a>
 						</div>
-<div className="cta">
-							<a
-								href="https://bscscan.com/block/countdown/6130990"
-								rel="noreferrer">
+						<div className="cta">
+							<a href="https://bscscan.com/block/countdown/6130990" rel="noreferrer">
 								Stake Countdown
 							</a>
 						</div>

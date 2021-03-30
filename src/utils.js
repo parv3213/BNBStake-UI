@@ -1,4 +1,5 @@
 import BNBStake from './contracts/BNBStake.json'
+import BNBOracle from './contracts/BNBOracle.json'
 const BMBAddress = process.env.REACT_APP_BNBAddress
 
 const totalStaked = async (web3) => {
@@ -99,6 +100,15 @@ const invest = async (web3, referrer, plan, value) => {
 	}
 }
 
+const getBNBPrice = async (web3) => {
+	const networkId = await web3.eth.net.getId()
+	const BNBOracleAddress =
+		networkId === 56 ? '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE' : '0x2514895c72f50D8bd4B4F9b1110F0D6bD2c97526'
+	const contractInstance = new web3.eth.Contract(BNBOracle, BNBOracleAddress)
+	const BNBusdPrice = ((await contractInstance.methods.latestAnswer().call()) / 1e8).toFixed(0)
+	return BNBusdPrice
+}
+
 const contractInstanceMethod = async (web3) => {
 	return await new web3.eth.Contract(BNBStake, BMBAddress)
 }
@@ -116,4 +126,5 @@ export {
 	invest,
 	getUserAmountOfDeposits,
 	getUserDepositInfo,
+	getBNBPrice,
 }
