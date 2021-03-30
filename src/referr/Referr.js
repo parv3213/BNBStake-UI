@@ -132,7 +132,7 @@ function Referr(props) {
 								<p className="sm-txt font-size-0.75">0.5% from each level 3 referral deposits</p>
 								<br></br>
 								<p className="sm-txt italic">
-									Note! You need to have at least 1 deposit to start receive earnings
+									Note! You DO NOT need to have any deposits to start receive earnings
 								</p>
 							</div>
 						</div>
