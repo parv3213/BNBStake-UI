@@ -18,7 +18,8 @@ const { REACT_APP_NETWORK_ID } = process.env
 export default function App() {
 	const [web3, setWeb3] = useState(undefined)
 	const [account, setAccount] = useState('')
-	const [bnbPrice, setBnbPrice] = useState(0)
+	const [assetPrice, setAssetPrice] = useState(0)
+	const [asset, setAsset] = useState('')
 	const [metamaskChange, setMetaMaskChange] = useState(true)
 	const [wrongNetwork, setWrongNetwork] = useState(false)
 	const [loading, setLoading] = useState(true)
@@ -57,8 +58,14 @@ export default function App() {
 				console.log('Not correct', networkId, REACT_APP_NETWORK_ID)
 				setWrongNetwork(true)
 			}
+			const domain = window.location.href.split('?')[0]
+			if (domain.indexOf('/busd') === -1) {
+				setAsset('BNB')
+			} else {
+				setAsset('BUSD')
+			}
 			const bnbPrice = await getAssetPrice(web3)
-			setBnbPrice(bnbPrice)
+			setAssetPrice(bnbPrice)
 			setWeb3(web3)
 			setAccount(account)
 		}
@@ -84,12 +91,12 @@ export default function App() {
 				<div className="container">
 					<Switch>
 						<Route path="/busd">
-							<Header account={account} bnbPrice={bnbPrice} />
+							<Header account={account} asset={asset} assetPrice={assetPrice} />
 							{loading === true ? <Spinner /> : null}
 
-							<Hero web3={web3} />
+							<Hero web3={web3} asset={asset} />
 							<Cards web3={web3} />
-							<Referr web3={web3} />
+							<Referr web3={web3} asset={asset} />
 							<Stake web3={web3} />
 							<img
 								src={footerImg}
@@ -104,12 +111,12 @@ export default function App() {
 							</Modal>
 						</Route>
 						<Route path="/">
-							<Header account={account} bnbPrice={bnbPrice} />
+							<Header account={account} asset={asset} assetPrice={assetPrice} />
 							{loading === true ? <Spinner /> : null}
 
-							<Hero web3={web3} />
+							<Hero web3={web3} asset={asset} />
 							<Cards web3={web3} />
-							<Referr web3={web3} />
+							<Referr web3={web3} asset={asset} />
 							<Stake web3={web3} />
 							<img
 								src={footerImg}

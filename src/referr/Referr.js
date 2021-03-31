@@ -56,13 +56,24 @@ function Referr(props) {
 	return (
 		<div className="Referr">
 			{loading === true ? <Spinner /> : null}
-			<p className="sm-txt" style={{ margin: 0, marginBottom: 15 }}>
-				1. Important: Plans return are float and daily profit for a new deposit will increase by 0.3% daily
-				<br></br>
-				2. Minimum deposit amount is 0.05 BNB and you can have multiple deposits<br></br>
-				3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest in
-				Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
-			</p>
+			{props.asset === 'BNB' ? ( //for BNB
+				<p className="sm-txt" style={{ margin: 0, marginBottom: 15 }}>
+					1. Important: Plans return are float and daily profit for a new deposit will increase by 0.3% daily
+					<br></br>
+					2. Minimum deposit amount is 0.05 BNB and you can have multiple deposits<br></br>
+					3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest
+					in Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
+				</p>
+			) : (
+				//for BUSD
+				<p className="sm-txt" style={{ margin: 0, marginBottom: 15 }}>
+					1. Important: Plans return are float and daily profit for a new deposit will increase by 0.3% daily
+					<br></br>
+					2. Minimum deposit amount is 0.05 BUSD and you can have multiple deposits<br></br>
+					3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest
+					in Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
+				</p>
+			)}
 
 			<div className="flex-row">
 				<div
@@ -74,7 +85,12 @@ function Referr(props) {
 					}}>
 					<p style={{ marginBottom: 0, marginTop: 0 }}>Total Staked</p>
 					<p className="bg-txt">{userTotalDeposits}</p>
-					<p style={{ marginBottom: 0, marginTop: 30 }}>Available BNB for withdrawal</p>
+					{props.asset === 'BNB' ? ( //for BNB
+						<p style={{ marginBottom: 0, marginTop: 30 }}>Available BNB for withdrawal</p>
+					) : (
+						//for BUSD
+						<p style={{ marginBottom: 0, marginTop: 30 }}>Available BUSD for withdrawal</p>
+					)}
 					<p className="bg-txt">{userAvailable}</p>
 					<button className="cta-fw" onClick={userWithdraw} style={{ marginTop: 30 }}>
 						WITHDRAW
@@ -123,7 +139,7 @@ function Referr(props) {
 							</div>
 
 							<div className="flex-col" style={{ width: '33%', padding: 0 }}>
-								<p className="sm-txt">Earn for promotion BNBstake</p>
+								<p className="sm-txt">Earn for promotion BFarm</p>
 								<br></br>
 								<p className="sm-txt">You will receive:</p>
 								<br></br>
