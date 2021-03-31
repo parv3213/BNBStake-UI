@@ -129,12 +129,23 @@ const invest = async (web3, referrer, plan, value) => {
 }
 
 const getAssetPrice = async (web3) => {
+	const domain = window.location.href.split('?')[0]
 	const networkId = await web3.eth.net.getId()
-	const BNBOracleAddress =
-		networkId === 56 ? '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE' : '0x2514895c72f50D8bd4B4F9b1110F0D6bD2c97526'
-	const contractInstance = new web3.eth.Contract(BNBOracle, BNBOracleAddress)
-	const BNBusdPrice = ((await contractInstance.methods.latestAnswer().call()) / 1e8).toFixed(0)
-	return BNBusdPrice
+	let address
+	if (domain.indexOf('/busd') === -1) {
+		address =
+			networkId === 56
+				? '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE'
+				: '0x2514895c72f50D8bd4B4F9b1110F0D6bD2c97526'
+	} else {
+		address =
+			networkId === 56
+				? '0x9331b55D9830EF609A2aBCfAc0FBCE050A52fdEa'
+				: '0x9331b55D9830EF609A2aBCfAc0FBCE050A52fdEa'
+	}
+	const contractInstance = new web3.eth.Contract(BNBOracle, address)
+	const assetPrice = ((await contractInstance.methods.latestAnswer().call()) / 1e8).toFixed(0)
+	return assetPrice
 }
 
 const contractInstanceMethod = async (web3) => {
