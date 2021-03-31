@@ -6,6 +6,7 @@ import { findUserDownline, getUserReferralAmount, getUserTotalDeposits, getUserA
 
 function Referr(props) {
 	const [loading, setLoading] = useState(false)
+	const [spinnerLoading, setSpinnerLoading] = useState(false)
 	const [userDownline, setUserDownline] = useState(0)
 	const [userReferralTotalBonus, setUserReferralTotalBonus] = useState(0)
 	const [userReferralWithdrawn, setUserReferralWithdrawn] = useState(0)
@@ -43,26 +44,40 @@ function Referr(props) {
 	const userWithdraw = async () => {
 		try {
 			setLoading(true)
+			setSpinnerLoading(true)
 			if (props.web3 === undefined) return
 			await withdraw(props.web3, (await props.web3.eth.getAccounts())[0])
 			setLoading(false)
+			setSpinnerLoading(false)
 		} catch (e) {
 			console.error(e)
 			alert(`Some error\n${e.message}`)
 			setLoading(false)
+			setSpinnerLoading(false)
 		}
 	}
 
 	return (
 		<div className="Referr">
 			{loading === true ? <Spinner /> : null}
-			<p className="sm-txt" style={{ margin: 0, marginBottom: 15 }}>
-				1. Important: Plans return are float and daily profit for a new deposit will increase by 0.3% daily
-				<br></br>
-				2. Minimum deposit amount is 0.05 BNB and you can have multiple deposits<br></br>
-				3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest in
-				Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
-			</p>
+			{props.asset === 'BNB' ? ( //for BNB
+				<p className="sm-txt" style={{ margin: 0, marginBottom: 15 }}>
+					1. Important: Plans return are float and daily profit for a new deposit will increase by 0.3% daily
+					<br></br>
+					2. Minimum deposit amount is 0.05 BNB and you can have multiple deposits<br></br>
+					3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest
+					in Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
+				</p>
+			) : (
+				//for BUSD
+				<p className="sm-txt" style={{ margin: 0, marginBottom: 15 }}>
+					1. Important: Plans return are float and daily profit for a new deposit will increase by 0.3% daily
+					<br></br>
+					2. Minimum deposit amount is 0.05 BUSD and you can have multiple deposits<br></br>
+					3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest
+					in Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
+				</p>
+			)}
 
 			<div className="flex-row">
 				<div
@@ -74,10 +89,18 @@ function Referr(props) {
 					}}>
 					<p style={{ marginBottom: 0, marginTop: 0 }}>Total Staked</p>
 					<p className="bg-txt">{userTotalDeposits}</p>
-					<p style={{ marginBottom: 0, marginTop: 30 }}>Available BNB for withdrawal</p>
+					{props.asset === 'BNB' ? ( //for BNB
+						<p style={{ marginBottom: 0, marginTop: 30 }}>Available BNB for withdrawal</p>
+					) : (
+						//for BUSD
+						<p style={{ marginBottom: 0, marginTop: 30 }}>Available BUSD for withdrawal</p>
+					)}
 					<p className="bg-txt">{userAvailable}</p>
 					<button className="cta-fw" onClick={userWithdraw} style={{ marginTop: 30 }}>
-						WITHDRAW
+						WITHDRAW{' '}
+						{spinnerLoading === true ? (
+							<Spinner className="text-align-center mx-2" animation="border" role="status" />
+						) : null}
 					</button>
 				</div>
 
@@ -123,7 +146,7 @@ function Referr(props) {
 							</div>
 
 							<div className="flex-col" style={{ width: '33%', padding: 0 }}>
-								<p className="sm-txt">Earn for promotion BNBstake</p>
+								<p className="sm-txt">Earn for promotion BFarm</p>
 								<br></br>
 								<p className="sm-txt">You will receive:</p>
 								<br></br>

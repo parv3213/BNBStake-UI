@@ -1,6 +1,11 @@
 import BNBStake from './contracts/BNBStake.json'
+import BNBTokenStake from './contracts/BNBTokenStake.json'
 import BNBOracle from './contracts/BNBOracle.json'
-const BMBAddress = process.env.REACT_APP_BNBAddress
+import BEP20Token from './contracts/BEP20Token.json'
+
+const BNBAddress = process.env.REACT_APP_BNBAddress
+const BNBTokenAddress = process.env.REACT_APP_BNBTokenAddress
+const TokenAddress = process.env.REACT_APP_TokenAddress
 
 const totalStaked = async (web3) => {
 	const contractInstance = await contractInstanceMethod(web3)
@@ -8,7 +13,14 @@ const totalStaked = async (web3) => {
 }
 
 const totalBalance = async (web3) => {
-	return (await web3.eth.getBalance(BMBAddress)) / 1e18
+	const domain = window.location.href.split('?')[0]
+	if (domain.indexOf('/busd') === -1) {
+		return (await web3.eth.getBalance(BNBAddress)) / 1e18
+	} else {
+		const tokenInstance = new web3.eth.Contract(BEP20Token, TokenAddress)
+		const balance = (await tokenInstance.methods.balanceOf(BNBTokenAddress).call()) / 1e18
+		return balance
+	}
 }
 
 const findUserDownline = async (web3, account) => {
@@ -54,9 +66,10 @@ const withdraw = async (web3, account) => {
 const getResult = async (web3, plan, deposit) => {
 	try {
 		const contractInstance = await contractInstanceMethod(web3)
-		let { profit, current, finish } = await contractInstance.methods.getResult(plan, deposit).call()
+		const current = new Date().getTime() / 1e3
+		let { profit, finish } = await contractInstance.methods.getResult(plan, deposit).call()
 		const totalReturn = (profit / deposit) * 100
-		const days = (finish - current) / (24 * 60 * 60)
+		const days = ((finish - current) / (24 * 60 * 60)).toFixed(1)
 		const dailyProfit = totalReturn / days
 		return { profit, totalReturn, days, dailyProfit }
 	} catch (e) {
@@ -88,29 +101,60 @@ const invest = async (web3, referrer, plan, value) => {
 	try {
 		const contractInstance = await contractInstanceMethod(web3)
 		const account = (await web3.eth.getAccounts())[0]
-		console.log(referrer, plan, value)
-		await contractInstance.methods
-			.invest(referrer, plan)
-			.send({ from: account, value })
-			.on('transactionHash', (transactionHash) => transactionHash)
-			.on('error', (error) => error)
+		const domain = window.location.href.split('?')[0]
+		if (domain.indexOf('/busd') === -1) {
+			await contractInstance.methods
+				.invest(referrer, plan)
+				.send({ from: account, value })
+				.on('transactionHash', (transactionHash) => transactionHash)
+				.on('error', (error) => error)
+		} else {
+			const tokenInstance = new web3.eth.Contract(BEP20Token, TokenAddress)
+			// const balance = (await tokenInstance.methods.balanceOf(BNBTokenAddress).call()) / 1e18
+			await tokenInstance.methods
+				.approve(BNBTokenAddress, value)
+				.send({ from: account })
+				.on('onReceipt', (receipt) => receipt)
+				.on('error', (error) => error)
+			await contractInstance.methods
+				.invest(referrer, plan, value)
+				.send({ from: account })
+				.on('transactionHash', (transactionHash) => transactionHash)
+				.on('error', (error) => error)
+		}
 	} catch (e) {
 		console.error(`Error at invest:`, e.message)
 		throw e
 	}
 }
 
-const getBNBPrice = async (web3) => {
+const getAssetPrice = async (web3) => {
+	const domain = window.location.href.split('?')[0]
 	const networkId = await web3.eth.net.getId()
-	const BNBOracleAddress =
-		networkId === 56 ? '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE' : '0x2514895c72f50D8bd4B4F9b1110F0D6bD2c97526'
-	const contractInstance = new web3.eth.Contract(BNBOracle, BNBOracleAddress)
-	const BNBusdPrice = ((await contractInstance.methods.latestAnswer().call()) / 1e8).toFixed(0)
-	return BNBusdPrice
+	let address
+	if (domain.indexOf('/busd') === -1) {
+		address =
+			networkId === 56
+				? '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE'
+				: '0x2514895c72f50D8bd4B4F9b1110F0D6bD2c97526'
+	} else {
+		address =
+			networkId === 56
+				? '0x9331b55D9830EF609A2aBCfAc0FBCE050A52fdEa'
+				: '0x9331b55D9830EF609A2aBCfAc0FBCE050A52fdEa'
+	}
+	const contractInstance = new web3.eth.Contract(BNBOracle, address)
+	const assetPrice = ((await contractInstance.methods.latestAnswer().call()) / 1e8).toFixed(0)
+	return assetPrice
 }
 
 const contractInstanceMethod = async (web3) => {
-	return await new web3.eth.Contract(BNBStake, BMBAddress)
+	const domain = window.location.href.split('?')[0]
+	if (domain.indexOf('/busd') === -1) {
+		return await new web3.eth.Contract(BNBStake, BNBAddress)
+	} else {
+		return await new web3.eth.Contract(BNBTokenStake, BNBTokenAddress)
+	}
 }
 
 export {
@@ -126,5 +170,5 @@ export {
 	invest,
 	getUserAmountOfDeposits,
 	getUserDepositInfo,
-	getBNBPrice,
+	getAssetPrice,
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Web3 from 'web3'
 import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal'
@@ -10,19 +11,20 @@ import Stake from './stake/Stake'
 import Footer from './footer/Footer'
 import footerImg from './footer.png'
 import './App.css'
-import { getBNBPrice } from './utils'
+import { getAssetPrice } from './utils'
 
 const { REACT_APP_NETWORK_ID } = process.env
 
 export default function App() {
 	const [web3, setWeb3] = useState(undefined)
 	const [account, setAccount] = useState('')
-	const [bnbPrice, setBnbPrice] = useState(0)
-	const [metamaskChange, setMetaMaskChange] = useState(true)
+	const [assetPrice, setAssetPrice] = useState(0)
+	const [asset, setAsset] = useState('')
+	// const [metamaskChange, setMetaMaskChange] = useState(true)
 	const [wrongNetwork, setWrongNetwork] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const handleClose = () => {
-		setMetaMaskChange(!metamaskChange)
+		// setMetaMaskChange(!metamaskChange)
 		setWrongNetwork(false)
 	}
 
@@ -56,15 +58,21 @@ export default function App() {
 				console.log('Not correct', networkId, REACT_APP_NETWORK_ID)
 				setWrongNetwork(true)
 			}
-			const bnbPrice = await getBNBPrice(web3)
-			setBnbPrice(bnbPrice)
+			const domain = window.location.href.split('?')[0]
+			if (domain.indexOf('/busd') === -1) {
+				setAsset('BNB')
+			} else {
+				setAsset('BUSD')
+			}
+			const bnbPrice = await getAssetPrice(web3)
+			setAssetPrice(bnbPrice)
 			setWeb3(web3)
 			setAccount(account)
 		}
 		setLoading(true)
 		init()
 		setLoading(false)
-	}, [metamaskChange])
+	}, [])
 
 	// useEffect(() => {
 	// 	window.ethereum.on('accountsChanged', () => {
@@ -78,27 +86,53 @@ export default function App() {
 	// }, [])
 
 	return (
-		<div className="App">
-			<div className="container">
-				<Header account={account} bnbPrice={bnbPrice} />
-				{loading === true ? <Spinner /> : null}
+		<Router>
+			<div className="App">
+				<div className="container">
+					<Switch>
+						<Route path="/busd">
+							<Header account={account} asset={asset} assetPrice={assetPrice} />
+							{loading === true ? <Spinner /> : null}
 
-				<Hero web3={web3} />
-				<Cards web3={web3} />
-				<Referr web3={web3} />
-				<Stake web3={web3} />
-				<img
-					src={footerImg}
-					alt="footer-img"
-					style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
-				<Footer />
-				<Modal show={wrongNetwork} onHide={handleClose}>
-					<Modal.Header closeButton>
-						<Modal.Title>Please switch to BSC Mainnet</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>Click on metamask and change to BSC Mainnet</Modal.Body>
-				</Modal>
+							<Hero web3={web3} asset={asset} />
+							<Cards web3={web3} />
+							<Referr web3={web3} asset={asset} />
+							<Stake web3={web3} />
+							<img
+								src={footerImg}
+								alt="footer-img"
+								style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
+							<Footer />
+							<Modal show={wrongNetwork} onHide={handleClose}>
+								<Modal.Header closeButton>
+									<Modal.Title>Please switch to BSC Mainnet</Modal.Title>
+								</Modal.Header>
+								<Modal.Body>Click on metamask and change to BSC Mainnet</Modal.Body>
+							</Modal>
+						</Route>
+						<Route path="/">
+							<Header account={account} asset={asset} assetPrice={assetPrice} />
+							{loading === true ? <Spinner /> : null}
+
+							<Hero web3={web3} asset={asset} />
+							<Cards web3={web3} />
+							<Referr web3={web3} asset={asset} />
+							<Stake web3={web3} />
+							<img
+								src={footerImg}
+								alt="footer-img"
+								style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
+							<Footer />
+							<Modal show={wrongNetwork} onHide={handleClose}>
+								<Modal.Header closeButton>
+									<Modal.Title>Please switch to BSC Mainnet</Modal.Title>
+								</Modal.Header>
+								<Modal.Body>Click on metamask and change to BSC Mainnet</Modal.Body>
+							</Modal>
+						</Route>
+					</Switch>
+				</div>
 			</div>
-		</div>
+		</Router>
 	)
 }

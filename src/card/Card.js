@@ -5,11 +5,13 @@ import { getResult, invest } from '../utils.js'
 
 function Card(props) {
 	const [loading, setLoading] = useState(false)
+	const [spinnerLoading, setSpinnerLoading] = useState(false)
 	const [deposit, setDeposit] = useState(undefined)
-	const [profit, setProfit] = useState('0')
-	const [totalReturn, setTotalReturn] = useState('')
+	const [profit, setProfit] = useState(0)
+	const [totalReturn, setTotalReturn] = useState(0)
 	const [days, setDays] = useState(0)
-	const [dailyProfit, setDailyProfit] = useState('')
+	const [dailyProfit, setDailyProfit] = useState(0)
+	const [asset, setAsset] = useState('BNB')
 
 	useEffect(() => {
 		const init = async () => {
@@ -22,6 +24,9 @@ function Card(props) {
 					String(props.plan / 1 - 1),
 					initialAmount
 				)
+				const domain = window.location.href.split('?')[0]
+				const asset = domain.indexOf('/busd') === -1 ? 'BNB' : 'BUSD'
+				setAsset(asset)
 				setTotalReturn(Math.round(totalReturn))
 				setDailyProfit(Math.round(dailyProfit * 10) / 10)
 				setDays(days)
@@ -41,6 +46,7 @@ function Card(props) {
 	const stake = async () => {
 		try {
 			setLoading(true)
+			setSpinnerLoading(true)
 			if (props.web3 === undefined) return
 			const referrer =
 				typeof window.location.href.split('ref=')[1] !== 'undefined'
@@ -48,10 +54,12 @@ function Card(props) {
 					: '0x0000000000000000000000000000000000000000'
 			await invest(props.web3, referrer, String(props.plan / 1 - 1), String(deposit * 1e18))
 			setLoading(false)
+			setSpinnerLoading(false)
 		} catch (e) {
 			console.error(e)
 			alert(`Some error\n${e.message}`)
 			setLoading(false)
+			setSpinnerLoading(false)
 		}
 	}
 
@@ -112,8 +120,12 @@ function Card(props) {
 			</div>
 
 			<button className="cta-fw" onClick={stake}>
-				STAKE BNB
+				STAKE {asset}
+				{spinnerLoading === true ? (
+					<Spinner className="text-align-center mx-2" animation="border" role="status" />
+				) : null}
 			</button>
+
 			{props.warning !== '' ? (
 				<div>
 					<p className="font-italic pt-2">{props.warning}</p>
