@@ -11,7 +11,7 @@ import Stake from './stake/Stake'
 import Footer from './footer/Footer'
 import footerImg from './footer.png'
 import './App.css'
-import { getBNBPrice } from './utils'
+import { getAssetPrice } from './utils'
 
 const { REACT_APP_NETWORK_ID } = process.env
 
@@ -57,7 +57,7 @@ export default function App() {
 				console.log('Not correct', networkId, REACT_APP_NETWORK_ID)
 				setWrongNetwork(true)
 			}
-			const bnbPrice = await getBNBPrice(web3)
+			const bnbPrice = await getAssetPrice(web3)
 			setBnbPrice(bnbPrice)
 			setWeb3(web3)
 			setAccount(account)
@@ -103,8 +103,6 @@ export default function App() {
 								<Modal.Body>Click on metamask and change to BSC Mainnet</Modal.Body>
 							</Modal>
 						</Route>
-					</Switch>
-					<Switch>
 						<Route path="/">
 							<Header account={account} bnbPrice={bnbPrice} />
 							{loading === true ? <Spinner /> : null}
