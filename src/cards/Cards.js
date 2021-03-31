@@ -7,40 +7,25 @@ function Cards(props) {
 		<div className="Cards">
 			<div className="flex-row">
 				<div className="flex-col">
-					<Card web3={props.web3} plan="1" warning={''} withdrawTime={'Any Time'} />
+					<Card asset={props.asset} web3={props.web3} plan="1" warning={''} withdrawTime={'Any Time'} />
 				</div>
 				<div className="flex-col">
-					<Card web3={props.web3} plan="2" warning={''} withdrawTime={'Any Time'} />
+					<Card asset={props.asset} web3={props.web3} plan="2" warning={''} withdrawTime={'Any Time'} />
 				</div>
 				<div className="flex-col">
-					<Card web3={props.web3} plan="3" warning={''} withdrawTime={'Any Time'} />
+					<Card asset={props.asset} web3={props.web3} plan="3" warning={''} withdrawTime={'Any Time'} />
 				</div>
 			</div>
 
 			<div className="flex-row">
 				<div className="flex-col" style={{ marginTop: 25 }}>
-					<Card
-						web3={props.web3}
-						plan="4"
-						warning={'* plan use capitalization of interest'}
-						withdrawTime={'End of Plan'}
-					/>
+					<Card asset={props.asset} web3={props.web3} plan="4" warning={'* plan use capitalization of interest'} withdrawTime={'End of Plan'} />
 				</div>
 				<div className="flex-col" style={{ marginTop: 25 }}>
-					<Card
-						web3={props.web3}
-						plan="5"
-						warning={'* plan use capitalization of interest'}
-						withdrawTime={'End of Plan'}
-					/>
+					<Card asset={props.asset} web3={props.web3} plan="5" warning={'* plan use capitalization of interest'} withdrawTime={'End of Plan'} />
 				</div>
 				<div className="flex-col" style={{ marginTop: 25 }}>
-					<Card
-						web3={props.web3}
-						plan="6"
-						warning={'* plan use capitalization of interest'}
-						withdrawTime={'End of Plan'}
-					/>
+					<Card asset={props.asset} web3={props.web3} plan="6" warning={'* plan use capitalization of interest'} withdrawTime={'End of Plan'} />
 				</div>
 			</div>
 		</div>

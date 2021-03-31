@@ -95,13 +95,10 @@ export default function App() {
 							{loading === true ? <Spinner /> : null}
 
 							<Hero web3={web3} asset={asset} />
-							<Cards web3={web3} />
+							<Cards web3={web3} asset={asset} />
 							<Referr web3={web3} asset={asset} />
 							<Stake web3={web3} />
-							<img
-								src={footerImg}
-								alt="footer-img"
-								style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
+							<img src={footerImg} alt="footer-img" style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
 							<Footer />
 							<Modal show={wrongNetwork} onHide={handleClose}>
 								<Modal.Header closeButton>
@@ -115,13 +112,10 @@ export default function App() {
 							{loading === true ? <Spinner /> : null}
 
 							<Hero web3={web3} asset={asset} />
-							<Cards web3={web3} />
+							<Cards web3={web3} asset={asset} />
 							<Referr web3={web3} asset={asset} />
 							<Stake web3={web3} />
-							<img
-								src={footerImg}
-								alt="footer-img"
-								style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
+							<img src={footerImg} alt="footer-img" style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
 							<Footer />
 							<Modal show={wrongNetwork} onHide={handleClose}>
 								<Modal.Header closeButton>

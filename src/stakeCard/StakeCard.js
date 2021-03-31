@@ -25,9 +25,7 @@ function StakeCard(props) {
 						className="progress-bar sm-txt"
 						style={{
 							hight: '3rem',
-							width:
-								(((new Date() / 1e3 - props.start) / (props.finish - props.start)) * 100).toFixed(2) +
-								'%',
+							width: (((new Date() / 1e3 - props.start) / (props.finish - props.start)) * 100).toFixed(2) + '%',
 						}}></div>
 				</div>
 			</div>

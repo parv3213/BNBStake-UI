@@ -35,17 +35,7 @@ function Stake(props) {
 
 			<div className="row my-auto">
 				{depositDetails.map((e, index) => {
-					return (
-						<StakeCard
-							key={index}
-							plan={e.plan}
-							percent={e.percent}
-							amount={e.amount}
-							start={e.start}
-							finish={e.finish}
-							profit={e.profit}
-						/>
-					)
+					return <StakeCard key={index} plan={e.plan} percent={e.percent} amount={e.amount} start={e.start} finish={e.finish} profit={e.profit} />
 				})}
 			</div>
 		</div>

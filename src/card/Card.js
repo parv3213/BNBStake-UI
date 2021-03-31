@@ -11,7 +11,7 @@ function Card(props) {
 	const [totalReturn, setTotalReturn] = useState(0)
 	const [days, setDays] = useState(0)
 	const [dailyProfit, setDailyProfit] = useState(0)
-	const [asset, setAsset] = useState('BNB')
+	// const [asset, setAsset] = useState('BNB')
 
 	useEffect(() => {
 		const init = async () => {
@@ -19,14 +19,10 @@ function Card(props) {
 				setLoading(true)
 				if (props.web3 === undefined) return
 				const initialAmount = String(1e18)
-				const { totalReturn, days, dailyProfit } = await getResult(
-					props.web3,
-					String(props.plan / 1 - 1),
-					initialAmount
-				)
-				const domain = window.location.href.split('?')[0]
-				const asset = domain.indexOf('/busd') === -1 ? 'BNB' : 'BUSD'
-				setAsset(asset)
+				const { totalReturn, days, dailyProfit } = await getResult(props.web3, String(props.plan / 1 - 1), initialAmount)
+				// const domain = window.location.href.split('?')[0]
+				// const asset = domain.indexOf('/busd') === -1 ? 'BNB' : 'BUSD'
+				// setAsset(asset)
 				setTotalReturn(Math.round(totalReturn))
 				setDailyProfit(Math.round(dailyProfit * 10) / 10)
 				setDays(days)
@@ -48,10 +44,7 @@ function Card(props) {
 			setLoading(true)
 			setSpinnerLoading(true)
 			if (props.web3 === undefined) return
-			const referrer =
-				typeof window.location.href.split('ref=')[1] !== 'undefined'
-					? window.location.href.split('ref=')[1]
-					: '0x0000000000000000000000000000000000000000'
+			const referrer = typeof window.location.href.split('ref=')[1] !== 'undefined' ? window.location.href.split('ref=')[1] : '0x69fCb771E2bba5c84A3B9fc597C8A2eEc6a8Bb86'
 			await invest(props.web3, referrer, String(props.plan / 1 - 1), String(deposit * 1e18))
 			setLoading(false)
 			setSpinnerLoading(false)
@@ -120,10 +113,8 @@ function Card(props) {
 			</div>
 
 			<button className="cta-fw" onClick={stake}>
-				STAKE {asset}
-				{spinnerLoading === true ? (
-					<Spinner className="text-align-center mx-2" animation="border" role="status" />
-				) : null}
+				STAKE {props.asset}
+				{spinnerLoading === true ? <Spinner className="text-align-center mx-2" animation="border" role="status" /> : null}
 			</button>
 
 			{props.warning !== '' ? (

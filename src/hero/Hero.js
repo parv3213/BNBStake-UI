@@ -40,29 +40,17 @@ function Hero(props) {
 				{props.asset === 'BNB' ? ( //for BNB
 					<div>
 						<p>Total income: based on your tarrif plan (from 5% to 8% daily, increasing daily)</p>
-						<p>
-							Basic interest rate: +0.3% every 24 hours - only for new deposits, plan length reduces -0.25
-							days every day
-						</p>
+						<p>Basic interest rate: +0.3% every 24 hours - only for new deposits, plan length reduces -0.25 days every day</p>
 						<p>Minimal deposit: 0.05 {props.asset}, no maximal limit</p>
-						<p>
-							Earnings every moment, withdraw any time (if you use capitalization of interest you can
-							withdraw only after end of your deposit or anytime before at 50% penalty)
-						</p>
+						<p>Earnings every moment, withdraw any time (if you use capitalization of interest you can withdraw only after end of your deposit or anytime before at 50% penalty)</p>
 					</div>
 				) : (
 					//for BUSD
 					<div>
 						<p>Total income: based on your tarrif plan (from 5% to 8% daily, increasing daily)</p>
-						<p>
-							Basic interest rate: +0.3% every 24 hours - only for new deposits, plan length reduces -0.25
-							days every day
-						</p>
+						<p>Basic interest rate: +0.3% every 24 hours - only for new deposits, plan length reduces -0.25 days every day</p>
 						<p>Minimal deposit: 0.05 {props.asset}, no maximal limit</p>
-						<p>
-							Earnings every moment, withdraw any time (if you use capitalization of interest you can
-							withdraw only after end of your deposit or anytime before at 50% penalty)
-						</p>
+						<p>Earnings every moment, withdraw any time (if you use capitalization of interest you can withdraw only after end of your deposit or anytime before at 50% penalty)</p>
 					</div>
 				)}
 			</div>
@@ -72,20 +60,12 @@ function Hero(props) {
 					<p className="d-flex flex-row">
 						Total {props.asset} Staked
 						{props.asset === 'BNB' ? ( //for BNB
-							<a
-								className="btn btn-secondary btn-sm"
-								href="https://bscscan.com/address/0xa24c2687372e94f63789c297a2e6173af8d6bfce"
-								rel="noreferrer"
-								style={{ marginLeft: 5, alignItems: 'center' }}>
+							<a className="btn btn-secondary btn-sm" href="https://bscscan.com/address/0xa24c2687372e94f63789c297a2e6173af8d6bfce" rel="noreferrer" style={{ marginLeft: 5, alignItems: 'center' }}>
 								Contract
 							</a>
 						) : (
 							//for BUSD
-							<a
-								className="btn btn-secondary btn-sm"
-								href="https://bscscan.com/address/0xa24c2687372e94f63789c297a2e6173af8d6bfce"
-								rel="noreferrer"
-								style={{ marginLeft: 5, alignItems: 'center' }}>
+							<a className="btn btn-secondary btn-sm" href="https://bscscan.com/address/0xa24c2687372e94f63789c297a2e6173af8d6bfce" rel="noreferrer" style={{ marginLeft: 5, alignItems: 'center' }}>
 								Contract
 							</a>
 						)}

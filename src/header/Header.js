@@ -42,22 +42,13 @@ function Header(props) {
 						<a className="btn btn-primary ml-1" href="http://t.me/bfarmfinance" rel="noreferrer">
 							Telegram
 						</a>
-						<a
-							className="btn btn-primary ml-1"
-							href="https://drive.google.com/file/d/1GPF7Da5Ru8DpfJr67kbzfLwuvI8QNA9I/view?usp=sharing"
-							rel="noreferrer">
+						<a className="btn btn-primary ml-1" href="https://drive.google.com/file/d/1GPF7Da5Ru8DpfJr67kbzfLwuvI8QNA9I/view?usp=sharing" rel="noreferrer">
 							Audit
 						</a>
-						<a
-							className="btn btn-primary ml-1"
-							href="https://drive.google.com/file/d/1zJ3YlovapSYVAQB6W1nPTiqfd-_09PHW/view?usp=sharing"
-							rel="noreferrer">
+						<a className="btn btn-primary ml-1" href="https://drive.google.com/file/d/1zJ3YlovapSYVAQB6W1nPTiqfd-_09PHW/view?usp=sharing" rel="noreferrer">
 							Presentation
 						</a>
-						<a
-							className="btn btn-primary ml-1"
-							href="https://bscscan.com/block/countdown/6130990"
-							rel="noreferrer">
+						<a className="btn btn-primary ml-1" href="https://bscscan.com/block/countdown/6130990" rel="noreferrer">
 							Stake Countdown
 						</a>
 					</div>

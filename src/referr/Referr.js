@@ -65,8 +65,7 @@ function Referr(props) {
 					1. Important: Plans return are float and daily profit for a new deposit will increase by 0.3% daily
 					<br></br>
 					2. Minimum deposit amount is 0.05 BNB and you can have multiple deposits<br></br>
-					3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest
-					in Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
+					3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest in Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
 				</p>
 			) : (
 				//for BUSD
@@ -74,8 +73,7 @@ function Referr(props) {
 					1. Important: Plans return are float and daily profit for a new deposit will increase by 0.3% daily
 					<br></br>
 					2. Minimum deposit amount is 0.05 BUSD and you can have multiple deposits<br></br>
-					3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest
-					in Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
+					3. Earnings every moment, withdraw instantly any time (if you did not use capitalization of interest in Plan 4, Plan 5 and Plan 6). If you use capitalization, can withdraw anytime with a penalty.
 				</p>
 			)}
 
@@ -97,10 +95,7 @@ function Referr(props) {
 					)}
 					<p className="bg-txt">{userAvailable}</p>
 					<button className="cta-fw" onClick={userWithdraw} style={{ marginTop: 30 }}>
-						WITHDRAW{' '}
-						{spinnerLoading === true ? (
-							<Spinner className="text-align-center mx-2" animation="border" role="status" />
-						) : null}
+						WITHDRAW {spinnerLoading === true ? <Spinner className="text-align-center mx-2" animation="border" role="status" /> : null}
 					</button>
 				</div>
 
@@ -112,20 +107,9 @@ function Referr(props) {
 
 						<div className="flex-row">
 							<div className="input sm-txt">{referralLink}</div>
-							<button
-								className="cta"
-								style={{ marginRight: 15 }}
-								onClick={() => navigator.clipboard.writeText(referralLink)}>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 16 16"
-									width="20"
-									height="20"
-									fill="currentColor"
-									className="mt-0">
-									<path
-										fillRule="evenodd"
-										d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
+							<button className="cta" style={{ marginRight: 15 }} onClick={() => navigator.clipboard.writeText(referralLink)}>
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor" className="mt-0">
+									<path fillRule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
 									<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"></path>
 									<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"></path>
 								</svg>
@@ -154,9 +138,7 @@ function Referr(props) {
 								<p className="sm-txt font-size-0.75">2.5% from each level 2 referral deposits</p>
 								<p className="sm-txt font-size-0.75">0.5% from each level 3 referral deposits</p>
 								<br></br>
-								<p className="sm-txt italic">
-									Note! You DO NOT need to have any deposits to start receive earnings
-								</p>
+								<p className="sm-txt italic">Note! You DO NOT need to have any deposits to start receive earnings</p>
 							</div>
 						</div>
 					</div>
