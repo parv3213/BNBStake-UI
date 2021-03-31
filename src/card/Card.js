@@ -6,10 +6,11 @@ import { getResult, invest } from '../utils.js'
 function Card(props) {
 	const [loading, setLoading] = useState(false)
 	const [deposit, setDeposit] = useState(undefined)
-	const [profit, setProfit] = useState('0')
-	const [totalReturn, setTotalReturn] = useState('')
+	const [profit, setProfit] = useState(0)
+	const [totalReturn, setTotalReturn] = useState(0)
 	const [days, setDays] = useState(0)
-	const [dailyProfit, setDailyProfit] = useState('')
+	const [dailyProfit, setDailyProfit] = useState(0)
+	const [asset, setAsset] = useState('BNB')
 
 	useEffect(() => {
 		const init = async () => {
@@ -22,6 +23,9 @@ function Card(props) {
 					String(props.plan / 1 - 1),
 					initialAmount
 				)
+				const domain = window.location.href.split('?')[0]
+				const asset = domain.indexOf('/busd') === -1 ? 'BNB' : 'BUSD'
+				setAsset(asset)
 				setTotalReturn(Math.round(totalReturn))
 				setDailyProfit(Math.round(dailyProfit * 10) / 10)
 				setDays(days)
@@ -112,7 +116,7 @@ function Card(props) {
 			</div>
 
 			<button className="cta-fw" onClick={stake}>
-				STAKE BNB
+				STAKE {asset}
 			</button>
 			{props.warning !== '' ? (
 				<div>
