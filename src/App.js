@@ -20,11 +20,11 @@ export default function App() {
 	const [account, setAccount] = useState('')
 	const [assetPrice, setAssetPrice] = useState(0)
 	const [asset, setAsset] = useState('')
-	const [metamaskChange, setMetaMaskChange] = useState(true)
+	// const [metamaskChange, setMetaMaskChange] = useState(true)
 	const [wrongNetwork, setWrongNetwork] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const handleClose = () => {
-		setMetaMaskChange(!metamaskChange)
+		// setMetaMaskChange(!metamaskChange)
 		setWrongNetwork(false)
 	}
 
@@ -72,7 +72,7 @@ export default function App() {
 		setLoading(true)
 		init()
 		setLoading(false)
-	}, [metamaskChange])
+	}, [])
 
 	// useEffect(() => {
 	// 	window.ethereum.on('accountsChanged', () => {

@@ -6,6 +6,7 @@ import { findUserDownline, getUserReferralAmount, getUserTotalDeposits, getUserA
 
 function Referr(props) {
 	const [loading, setLoading] = useState(false)
+	const [spinnerLoading, setSpinnerLoading] = useState(false)
 	const [userDownline, setUserDownline] = useState(0)
 	const [userReferralTotalBonus, setUserReferralTotalBonus] = useState(0)
 	const [userReferralWithdrawn, setUserReferralWithdrawn] = useState(0)
@@ -43,13 +44,16 @@ function Referr(props) {
 	const userWithdraw = async () => {
 		try {
 			setLoading(true)
+			setSpinnerLoading(true)
 			if (props.web3 === undefined) return
 			await withdraw(props.web3, (await props.web3.eth.getAccounts())[0])
 			setLoading(false)
+			setSpinnerLoading(false)
 		} catch (e) {
 			console.error(e)
 			alert(`Some error\n${e.message}`)
 			setLoading(false)
+			setSpinnerLoading(false)
 		}
 	}
 
@@ -93,7 +97,10 @@ function Referr(props) {
 					)}
 					<p className="bg-txt">{userAvailable}</p>
 					<button className="cta-fw" onClick={userWithdraw} style={{ marginTop: 30 }}>
-						WITHDRAW
+						WITHDRAW{' '}
+						{spinnerLoading === true ? (
+							<Spinner className="text-align-center mx-2" animation="border" role="status" />
+						) : null}
 					</button>
 				</div>
 
