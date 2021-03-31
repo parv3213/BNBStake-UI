@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Web3 from 'web3'
 import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal'
@@ -78,27 +79,55 @@ export default function App() {
 	// }, [])
 
 	return (
-		<div className="App">
-			<div className="container">
-				<Header account={account} bnbPrice={bnbPrice} />
-				{loading === true ? <Spinner /> : null}
+		<Router>
+			<div className="App">
+				<div className="container">
+					<Switch>
+						<Route path="/busd">
+							<Header account={account} bnbPrice={bnbPrice} />
+							{loading === true ? <Spinner /> : null}
 
-				<Hero web3={web3} />
-				<Cards web3={web3} />
-				<Referr web3={web3} />
-				<Stake web3={web3} />
-				<img
-					src={footerImg}
-					alt="footer-img"
-					style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
-				<Footer />
-				<Modal show={wrongNetwork} onHide={handleClose}>
-					<Modal.Header closeButton>
-						<Modal.Title>Please switch to BSC Mainnet</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>Click on metamask and change to BSC Mainnet</Modal.Body>
-				</Modal>
+							<Hero web3={web3} />
+							<Cards web3={web3} />
+							<Referr web3={web3} />
+							<Stake web3={web3} />
+							<img
+								src={footerImg}
+								alt="footer-img"
+								style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
+							<Footer />
+							<Modal show={wrongNetwork} onHide={handleClose}>
+								<Modal.Header closeButton>
+									<Modal.Title>Please switch to BSC Mainnet</Modal.Title>
+								</Modal.Header>
+								<Modal.Body>Click on metamask and change to BSC Mainnet</Modal.Body>
+							</Modal>
+						</Route>
+					</Switch>
+					<Switch>
+						<Route path="/">
+							<Header account={account} bnbPrice={bnbPrice} />
+							{loading === true ? <Spinner /> : null}
+
+							<Hero web3={web3} />
+							<Cards web3={web3} />
+							<Referr web3={web3} />
+							<Stake web3={web3} />
+							<img
+								src={footerImg}
+								alt="footer-img"
+								style={{ display: 'block', margin: 'auto', marginTop: 25, width: '100%' }}></img>
+							<Footer />
+							<Modal show={wrongNetwork} onHide={handleClose}>
+								<Modal.Header closeButton>
+									<Modal.Title>Please switch to BSC Mainnet</Modal.Title>
+								</Modal.Header>
+								<Modal.Body>Click on metamask and change to BSC Mainnet</Modal.Body>
+							</Modal>
+						</Route>
+					</Switch>
+				</div>
 			</div>
-		</div>
+		</Router>
 	)
 }
