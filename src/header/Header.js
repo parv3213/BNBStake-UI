@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 
 // import logo from '../logo.svg'
-import cake from '../../bfarm200forwebp.png'
+import cake from '../public/bfarm200forwebp.png'
 import './Header.css'
 
 function Header(props) {

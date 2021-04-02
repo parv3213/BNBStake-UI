@@ -126,6 +126,21 @@ const invest = async (web3, referrer, plan, value) => {
 	}
 }
 
+const forceWithdraw = async (web3, plan) => {
+	try {
+		const contractInstance = await contractInstanceMethod(web3)
+		const account = (await web3.eth.getAccounts())[0]
+		await contractInstance.methods
+			.forceWithdraw(plan)
+			.send({ from: account })
+			.on('transactionHash', (transactionHash) => transactionHash)
+			.on('error', (error) => error)
+	} catch (e) {
+		console.error(`Error at invest:`, e.message)
+		throw e
+	}
+}
+
 const getAssetPrice = async (web3) => {
 	const domain = window.location.href.split('?')[0]
 	const networkId = await web3.eth.net.getId()
@@ -149,4 +164,4 @@ const contractInstanceMethod = async (web3) => {
 	}
 }
 
-export { totalStaked, contractInstanceMethod, totalBalance, findUserDownline, getUserReferralAmount, getUserTotalDeposits, getUserAvailable, withdraw, getResult, invest, getUserAmountOfDeposits, getUserDepositInfo, getAssetPrice }
+export { totalStaked, contractInstanceMethod, totalBalance, findUserDownline, getUserReferralAmount, getUserTotalDeposits, getUserAvailable, withdraw, getResult, invest, getUserAmountOfDeposits, getUserDepositInfo, getAssetPrice, forceWithdraw }

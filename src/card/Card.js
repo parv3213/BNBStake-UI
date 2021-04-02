@@ -48,6 +48,7 @@ function Card(props) {
 			await invest(props.web3, referrer, String(props.plan / 1 - 1), String(deposit * 1e18))
 			setLoading(false)
 			setSpinnerLoading(false)
+			window.location.reload()
 		} catch (e) {
 			console.error(e)
 			alert(`Some error\n${e.message}`)

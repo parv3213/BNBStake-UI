@@ -17,6 +17,7 @@ function Stake(props) {
 				const depositDetailsArray = []
 				for (let i = 0; i < depositAmounts; i++) {
 					const depositDetails = await getUserDepositInfo(props.web3, i)
+					depositDetails['index'] = i
 					depositDetailsArray.push(depositDetails)
 				}
 				setDepositDetails(depositDetailsArray)
@@ -35,7 +36,7 @@ function Stake(props) {
 
 			<div className="row my-auto">
 				{depositDetails.map((e, index) => {
-					return <StakeCard key={index} plan={e.plan} percent={e.percent} amount={e.amount} start={e.start} finish={e.finish} profit={e.profit} />
+					return <StakeCard web3={props.web3} index={e.index} key={index} plan={e.plan} percent={e.percent} amount={e.amount} start={e.start} finish={e.finish} profit={e.profit} />
 				})}
 			</div>
 		</div>

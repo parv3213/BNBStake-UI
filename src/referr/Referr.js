@@ -49,6 +49,7 @@ function Referr(props) {
 			await withdraw(props.web3, (await props.web3.eth.getAccounts())[0])
 			setLoading(false)
 			setSpinnerLoading(false)
+			window.location.reload()
 		} catch (e) {
 			console.error(e)
 			alert(`Some error\n${e.message}`)
