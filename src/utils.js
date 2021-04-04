@@ -148,7 +148,7 @@ const getAssetPrice = async (web3) => {
 	if (domain.indexOf('/busd') === -1) {
 		address = networkId === 56 ? '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE' : '0x2514895c72f50D8bd4B4F9b1110F0D6bD2c97526'
 	} else {
-		address = networkId === 56 ? '0x9331b55D9830EF609A2aBCfAc0FBCE050A52fdEa' : '0x9331b55D9830EF609A2aBCfAc0FBCE050A52fdEa'
+		address = networkId === 56 ? '0xcBb98864Ef56E9042e7d2efef76141f15731B82f' : '0x9331b55D9830EF609A2aBCfAc0FBCE050A52fdEa'
 	}
 	const contractInstance = new web3.eth.Contract(BNBOracle, address)
 	const assetPrice = ((await contractInstance.methods.latestAnswer().call()) / 1e8).toFixed(0)
