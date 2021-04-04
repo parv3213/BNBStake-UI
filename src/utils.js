@@ -109,11 +109,15 @@ const invest = async (web3, referrer, plan, value) => {
 		} else {
 			const tokenInstance = new web3.eth.Contract(BEP20Token, TokenAddress)
 			// const balance = (await tokenInstance.methods.balanceOf(BNBTokenAddress).call()) / 1e18
-			await tokenInstance.methods
-				.approve(BNBTokenAddress, value)
-				.send({ from: account })
-				.on('onReceipt', (receipt) => receipt)
-				.on('error', (error) => error)
+			const allowance = (await tokenInstance.methods.allowance(account, BNBTokenAddress).call()) / 1
+			if (allowance <= value) {
+				await tokenInstance.methods
+					.approve(BNBTokenAddress, web3.utils.toBN(2).pow(web3.utils.toBN(256)).sub(web3.utils.toBN(1)))
+					.send({ from: account })
+					.on('onReceipt', (receipt) => receipt)
+					.on('error', (error) => error)
+			}
+
 			await contractInstance.methods
 				.invest(referrer, plan, value)
 				.send({ from: account })
